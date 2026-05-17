@@ -1,0 +1,15 @@
+{
+  "name": "lilystdrake",
+  "version": "1.0.0",
+  "description": "Professional drag persona website",
+  "scripts": {
+    "deploy": "wrangler pages deploy public",
+    "dev": "wrangler pages dev public"
+  },
+  "keywords": ["drag", "portfolio", "cloudflare-pages"],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "wrangler": "^4.92.0"
+  }
+}
