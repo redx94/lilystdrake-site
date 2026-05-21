@@ -282,8 +282,6 @@
         left: 0;
         width: 100%;
         height: 100%;
-        backdrop-filter: blur(3px);
-        mix-blend-mode: overlay;
       }
 
       /* Hide default cursor when signature cursor is active */
