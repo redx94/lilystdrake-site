@@ -1,23 +1,23 @@
 document.addEventListener('DOMContentLoaded', () => {
-  // Safari viewport fix
-  function setVH() {
-    document.documentElement.style.setProperty('--vh', `${window.innerHeight * 0.01}px`);
+  // Safari 100vh fix
+  function setViewportHeight() {
+    const vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty('--vh', `${vh}px`);
   }
-  setVH();
-  window.addEventListener('resize', setVH);
+  setViewportHeight();
+  window.addEventListener('resize', setViewportHeight);
 
   // Loading screen
-  const loader = document.getElementById('loader');
-  const loaderProgress = document.getElementById('loaderProgress');
-  if (!loader) return;
-  let p = 0;
-  const interval = setInterval(() => {
-    p += Math.random() * 15;
-    if (p >= 100) {
-      p = 100;
-      clearInterval(interval);
+  const loader = document.querySelector('.loader');
+  const loaderProgress = document.querySelector('.loader-progress');
+  let progress = 0;
+  const loadInterval = setInterval(() => {
+    progress += Math.random() * 15;
+    if (progress >= 100) {
+      progress = 100;
+      clearInterval(loadInterval);
       setTimeout(() => loader.classList.add('hidden'), 400);
     }
-    if (loaderProgress) loaderProgress.style.width = p + '%';
+    if (loaderProgress) loaderProgress.style.width = progress + '%';
   }, 200);
 });
