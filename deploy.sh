@@ -1,28 +1,22 @@
 #!/bin/bash
-# LILY ST. DRAKE - DEPLOYMENT SCRIPT
-# 
-# Usage: 
-#   export CLOUDFLARE_PAGES_TOKEN="your_token"
-#   ./deploy.sh
-
 set -e
 
 echo "Deploying Lily St. Drake website..."
 
-# Check for token
-if [ -z "$CLOUDFLARE_PAGES_TOKEN" ]; then
-    echo "ERROR: CLOUDFLARE_PAGES_TOKEN not set"
-    echo "Set with: export CLOUDFLARE_PAGES_TOKEN='your_token'"
-    exit 1
+# Load token from local env file if exists
+if [ -f .env ]; then
+  source .env
 fi
 
-# Push to GitHub
-git add -A
-git commit -m "Deploy update" 2>/dev/null || true
-git push origin main
+if [ -z "$CLOUDFLARE_API_TOKEN" ]; then
+  echo "ERROR: CLOUDFLARE_API_TOKEN not set"
+  echo "Set with:"
+  echo "  echo 'CLOUDFLARE_API_TOKEN=\"your_token\"' > .env"
+  exit 1
+fi
 
-# Deploy to Cloudflare
 cd public
-npx wrangler pages deploy . --project-name=lilystdrake
+npx wrangler pages deploy . --project-name=lilystdrake --branch production
 
+echo ""
 echo "Done! https://lilystdrake.com"

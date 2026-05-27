@@ -119,8 +119,16 @@
   </style>
 </head>
 <body>
-  <!-- Starfield Canvas Background -->
-  <canvas id="starfield" class="fixed top-0 left-0 w-screen h-screen" style="z-index: 0"></canvas>
+  <!-- Loading Screen -->
+  <div class="loader" id="loader">
+    <div class="loader-logo">LSD</div>
+    <div class="loader-bar">
+      <div class="loader-progress" id="loaderProgress" style="width: 0%"></div>
+    </div>
+  </div>
+
+  <!-- Hero Canvas Background (full viewport) -->
+  <canvas id="hero-canvas" class="fixed top-0 left-0 w-screen h-screen" style="z-index: 0"></canvas>
 
   <!-- Navigation -->
   <nav id="navbar" class="fixed top-0 left-0 right-0 h-16 flex items-center justify-between px-6 md:px-10 transition-all duration-500" style="z-index: 50; background: transparent;">
@@ -354,112 +362,26 @@
   <!-- Distortion Cursor -->
   <div id="distortionCursor" style="display: none;"></div>
 
-  <!-- Distortion Cursor (loaded as module to avoid conflicts) -->
   <script src="/distortion-cursor.js"></script>
+  <script src="/hero.js"></script>
   <script>
-    // ============ DATA ============
-    const GALLERY_DATA = [
-      { title: 'Opening Number', category: 'PERFORMANCES', image: '/assets/images/gallery-opening.jpg' },
-      { title: 'Neon Dreams', category: 'EDITORIAL', image: '/assets/images/gallery-neon-dreams.jpg' },
-      { title: 'Green Goddess', category: 'PERFORMANCES', image: '/assets/images/gallery-green-goddess.jpg' },
-      { title: 'Acid Elegance', category: 'COLLABORATIONS', image: '/assets/images/gallery-acid-elegance.jpg' },
-      { title: 'Trippy Couture', category: 'EDITORIAL', image: '/assets/images/gallery-trippy-couture.jpg' },
-      { title: 'Showstopper Finale', category: 'PERFORMANCES', image: '/assets/images/gallery-showstopper.jpg' },
-    ];
-    const VIDEO_DATA = [
-      { title: 'LSD Experience - Full Performance', duration: '12:34', thumbnail: '/assets/images/video-thumb-1.jpg' },
-      { title: 'Neon Nights Club Set', duration: '8:47', thumbnail: '/assets/images/video-thumb-2.jpg' },
-      { title: 'Pride Main Stage 2025', duration: '15:22', thumbnail: '/assets/images/video-thumb-3.jpg' },
-    ];
-    const REVIEWS_DATA = [
-      { quote: "Lily absolutely stole the show at our corporate event. Professional, punctual, and the most incredible energy. Our guests are still talking about it months later!", name: "Sarah M.", title: "Event Coordinator" },
-      { quote: "We've booked Lily three times now for our monthly drag nights. Each show is better than the last. The fans literally cheer for every look.", name: "Jake T.", title: "Club Owner" },
-      { quote: "Booked Lily for my sister's bachelorette party and it was the best decision ever. Lily made everyone feel included and the photos are incredible.", name: "Maria R.", title: "Private Client" },
-    ];
-    const SERVICES_DATA = [
-      { name: "Club Performances", price: "$500" },
-      { name: "Private Events", price: "$750" },
-      { name: "Corporate Events", price: "$1,000" },
-      { name: "Pride Events", price: "$600" },
-      { name: "Photo Shoots", price: "$400" },
-      { name: "MC / Hosting", price: "$500" },
-    ];
-    const DONATION_DATA = [
-      { name: 'Venmo', url: 'https://venmo.com/lilystdrake', icon: '💚' },
-      { name: 'PayPal', url: 'https://paypal.me/lilystdrake', icon: '💛' },
-      { name: 'Ko-fi', url: 'https://ko-fi.com/lilystdrake', icon: '☕' },
-      { name: 'Cash App', url: 'https://cash.app/$lilystdrake', icon: '💵' },
-    ];
-    const WISHLIST_DATA = [
-      { icon: '💄', name: 'KVD Good Apple Foundation - Full Coverage', price: '$42.00', priority: 'High', category: 'Makeup', link: '#' },
-      { icon: '💅', name: 'NYX Professional Palette - Heavy Metal', price: '$24.00', priority: 'High', category: 'Makeup', link: '#' },
-      { icon: '👑', name: 'Jon Renau Omni 18inch - Cherry Cola', price: '$169.00', priority: 'High', category: 'Wigs', link: '#' },
-      { icon: '👠', name: 'Pleaser High Heels - Adore-1016', price: '$85.00', priority: 'Medium', category: 'Shoes', link: '#' },
-      { icon: '👗', name: 'Sequin Bodysuit - Custom Size', price: '$120.00', priority: 'Medium', category: 'Costumes', link: '#' },
-      { icon: '📸', name: 'Ring Light with Phone Holder - 12 inch', price: '$35.00', priority: 'Low', category: 'Electronics', link: '#' },
-      { icon: '💋', name: 'Lip Kit Bundle - Various Colors', price: '$56.00', priority: 'Low', category: 'Makeup', link: '#' },
-      { icon: '🎤', name: 'Wireless Microphone System', price: '$79.00', priority: 'Medium', category: 'Electronics', link: '#' },
-    ];
-    const FAQ_DATA = [
-      { q: "How far in advance should I book?", a: "I recommend booking at least 2-4 weeks in advance to secure your date. For large events or peak pride season, 1-2 months is ideal. However, I sometimes have last-minute availability, so it's always worth asking!" },
-      { q: "Do you travel for events?", a: "Yes! I'm available for events outside my home city. Travel fees may apply depending on distance. Let's discuss your event location during our consultation call." },
-      { q: "Can I request specific songs or themes?", a: "Absolutely! I love incorporating client preferences into my performances. Just let me know your theme or preferred music style in the booking form, and we'll make it happen." },
-      { q: "What does a typical performance include?", a: "A standard performance includes 2-3 costume changes, a 15-20 minute set with music and choreography, and audience interaction. For longer events or custom requirements, we can customize the package to fit your needs." },
-    ];
-    const SOCIAL_DATA = [
-      { name: 'Instagram', handle: '@lilyst.drake', url: 'https://www.instagram.com/lilyst.drake', icon: 'ig' },
-      { name: 'TikTok', handle: '@lilystdrake', url: 'https://www.tiktok.com/@lilystdrake', icon: 'tiktok' },
-      { name: 'Email', handle: 'bookings@lilystdrake.com', url: 'mailto:bookings@lilystdrake.com', icon: 'email' },
-      { name: 'All Links', handle: 'linktr.ee/lilystdrake', url: 'https://linktr.ee/lilystdrake', icon: 'link' },
-    ];
-
-    // ============ STARFIELD CANVAS ============
-    (function initStarfield() {
-      const canvas = document.getElementById('starfield');
-      if (!canvas) return;
-      const ctx = canvas.getContext('2d');
-      if (!ctx) return;
-      const COLORS = ['#39FF14','#32CD32','#228B22','#7CFC00','#ADFF2F','#00FF41','#66FF00','#B2FF00','#CCFF00','#E5FF00','#FFFF00','#FFD700','#00FA9A','#00FF7F'];
-      const IS_MOBILE = window.innerWidth < 768;
-      if (IS_MOBILE) { canvas.style.background = 'radial-gradient(circle at center, rgba(57,255,20,0.05) 0%, rgba(5,5,5,1) 70%)'; return; }
-      let W, H, particles = [], rafId, baseSpeed = 0.25, scrollBoost = 0, lastScroll = 0;
-      function resize() { W = window.innerWidth; H = window.innerHeight; canvas.width = W; canvas.height = H; initParticles(); }
-      function initParticles() {
-        particles = [];
-        for (let i = 0; i < 2000; i++) {
-          particles.push({ x: Math.random() * W, y: Math.random() * H, size: Math.random() * 1.5 + 0.5, speed: (Math.random() * 0.5 + 0.5) * baseSpeed, opacity: Math.random() * 0.5 + 0.3, color: COLORS[Math.floor(Math.random() * COLORS.length)] });
+    // ============ LOADING SCREEN ============
+    (function() {
+      const loader = document.getElementById('loader');
+      const progress = document.getElementById('loaderProgress');
+      let p = 0;
+      const interval = setInterval(() => {
+        p += Math.random() * 15;
+        if (p >= 100) {
+          p = 100;
+          clearInterval(interval);
+          setTimeout(() => {
+            loader.classList.add('hidden');
+            // Hide the canvas fixed background until hero.js takes over
+          }, 300);
         }
-      }
-      function render() {
-        ctx.clearRect(0, 0, W, H);
-        // Starfield
-        ctx.save(); ctx.globalCompositeOperation = 'lighter';
-        for (const p of particles) {
-          const effectiveSpeed = p.speed + scrollBoost;
-          p.y -= effectiveSpeed;
-          if (p.y + p.size < 0) { p.y = H + p.size; p.x = Math.random() * W; }
-          ctx.globalAlpha = p.opacity; ctx.fillStyle = p.color;
-          ctx.beginPath(); ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2); ctx.fill();
-        }
-        ctx.restore();
-        // Grid
-        const gridSpacingX = W / 200, gridSpacingY = H / 200;
-        ctx.strokeStyle = 'rgba(57,255,20,0.08)'; ctx.lineWidth = 1; ctx.beginPath();
-        for (let col = 0; col <= 200; col++) { const x = col * gridSpacingX; ctx.moveTo(x, 0); ctx.lineTo(x, H); }
-        for (let row = 0; row <= 200; row++) { const y = row * gridSpacingY; ctx.moveTo(0, y); ctx.lineTo(W, y); }
-        ctx.stroke();
-        // Vignette
-        const cx = W / 2, cy = H / 2;
-        const gradient = ctx.createRadialGradient(cx, cy, W * 0.2, cx, cy, W * 0.8);
-        gradient.addColorStop(0, 'rgba(5,5,5,0)'); gradient.addColorStop(1, 'rgba(5,5,5,0.9)');
-        ctx.fillStyle = gradient; ctx.fillRect(0, 0, W, H);
-        scrollBoost *= 0.95; if (scrollBoost < 0.001) scrollBoost = 0;
-        rafId = requestAnimationFrame(render);
-      }
-      window.addEventListener('scroll', () => { const d = Math.abs(window.scrollY - lastScroll); scrollBoost = Math.min(d * 0.01, 2); lastScroll = window.scrollY; }, { passive: true });
-      let resizeTimeout;
-      window.addEventListener('resize', () => { clearTimeout(resizeTimeout); resizeTimeout = setTimeout(() => resize(), 150); });
-      document.fonts.ready.then(() => { requestAnimationFrame(() => { resize(); rafId = requestAnimationFrame(render); }); });
+        if (progress) progress.style.width = p + '%';
+      }, 200);
     })();
 
     // ============ HERO ANIMATION ============
