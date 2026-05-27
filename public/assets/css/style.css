@@ -320,7 +320,51 @@ body {
   letter-spacing: 0.1em;
 }
 
+.gb-back-btn {
+  display: inline-block;
+  margin-bottom: 1rem;
+  font-family: 'Syncopate', sans-serif;
+  font-weight: 700;
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  color: var(--acid);
+  background: transparent;
+  border: 1px solid var(--acid);
+  border-radius: 0.5rem;
+  padding: 0.6rem 1.5rem;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.3s, color 0.3s;
+}
+
+.gb-back-btn:hover {
+  background: var(--acid);
+  color: var(--void);
+}
+
 /* Animations */
+.hero-cta-btn {
+  display: inline-block;
+  margin-top: 2.5rem;
+  padding: 0.9rem 2rem;
+  font-family: 'Syncopate', sans-serif;
+  font-weight: 700;
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  color: var(--void);
+  background: var(--acid);
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.3s, transform 0.2s;
+}
+
+.hero-cta-btn:hover {
+  background: var(--neon-yellow);
+  transform: translateY(-2px);
+}
+
 @keyframes pulse {
   0%, 100% { transform: scale(1); opacity: 1; }
   50% { transform: scale(1.05); opacity: 0.8; }

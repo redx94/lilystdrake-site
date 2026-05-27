@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lily St. Drake | Guestbook</title>
+  <meta name="description" content="Leave a message for Lily St. Drake">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700;900&family=Outfit:wght@300;400;500;600;700;800&family=Space+Mono:wght@400;700&family=Patrick+Hand&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+  <!-- Loading Screen -->
+  <div class="loader" id="loader">
+    <div class="loader-logo">LSD</div>
+    <div class="loader-bar">
+      <div class="loader-progress" id="loaderProgress" style="width: 0%"></div>
+    </div>
+  </div>
+
+  <canvas id="hero-canvas"></canvas>
+
+  <!-- Navigation -->
+  <nav class="nav" id="nav">
+    <a href="/" class="nav-logo">LSD</a>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="guestbook">
+    <div class="gb-header">
+      <div class="gb-heart">💚</div>
+      <h1 class="gb-title">THE GUESTBOOK</h1>
+      <p class="gb-subtitle">Leave a message for Lily</p>
+      <div class="gb-divider">◇ ◇ ◇</div>
+    </div>
+
+    <form class="gb-form" id="guestbookForm">
+      <div class="gb-form-row">
+        <input type="text" id="gbName" placeholder="Your name" maxlength="40" required class="gb-input" autocomplete="off">
+      </div>
+      <div class="gb-form-row">
+        <textarea id="gbMessage" placeholder="Write something sweet, wild, or unforgettable..." maxlength="500" required class="gb-input gb-textarea"></textarea>
+      </div>
+      <button type="submit" class="gb-submit" id="gbSubmitBtn">
+        <span class="gb-submit-text">SEND</span>
+        <span class="gb-submit-icon">✦</span>
+      </button>
+      <p class="gb-form-note" id="gbFormNote"></p>
+    </form>
+
+    <div class="gb-divider gb-divider-wall">◇ ◇ ◇</div>
+
+    <div class="gb-wall-header">
+      <h2 class="gb-wall-title">Messages</h2>
+      <span class="gb-count" id="gbCount">0 messages</span>
+    </div>
+    <div class="gb-wall" id="gbWall"></div>
+
+    <div class="gb-footer">
+      <a href="/" class="gb-back-btn">&larr; BACK</a>
+      <p class="gb-footer-text">Every message goes straight to Lily's heart 💚</p>
+    </div>
+  </main>
+
+  <script src="/hero.js"></script>
+  <script src="/assets/js/main.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const SUPABASE_URL = 'https://rwdqcgrcerjkjxtokica.supabase.co';
+      const SUPABASE_KEY = 'sb_publishable_RK5HTSJPXHNgoCuSegJE3g_ymmV1GHP';
+
+      const SEED_MESSAGES = [
+        { name: 'Sarah', message: 'Lily you are ICONIC. Saw you at pride last year and you literally changed my life. The way you command a stage is pure magic. ✨', created_at: new Date(Date.now() - 172800000).toISOString() },
+        { name: 'Marcus', message: 'First time seeing Lily perform and I was completely speechless. The energy, the looks, the presence. We are NOT worthy. 🔥', created_at: new Date(Date.now() - 345600000).toISOString() },
+        { name: 'Jess', message: 'Lily St. Drake is what happens when talent meets hard work meets pure star power. So excited to see what you do next! 💚', created_at: new Date(Date.now() - 518400000).toISOString() },
+        { name: 'Alex', message: 'booked lily for my birthday and it was the best decision i have ever made. everyone is still talking about it. you are a legend.', created_at: new Date(Date.now() - 604800000).toISOString() },
+        { name: 'Priya', message: 'just wanna say lily makes me feel so seen and represented. seeing a queen of color slay this hard gives me life. keep rising. 🌟', created_at: new Date(Date.now() - 864000000).toISOString() },
+        { name: 'Danny', message: 'the LSD experience is REAL. lily takes you on a journey every single time. never miss a show if you can help it. ⚡', created_at: new Date(Date.now() - 1209600000).toISOString() },
+        { name: 'Maya', message: 'Lily!! met you after the show and you were the sweetest most genuine person. a star on and off stage. rooting for you always!! 💚', created_at: new Date(Date.now() - 1814400000).toISOString() },
+        { name: 'Ryan', message: 'honestly lily is one of the hardest working performers i know. every look, every number, every detail is perfection. bow down.', created_at: new Date(Date.now() - 2419200000).toISOString() },
+        { name: 'Zoe', message: 'discovered lily on instagram and now im obsessed. the aesthetic, the music choices, the vision. this is what drag is all about. 🎭', created_at: new Date(Date.now() - 3024000000).toISOString() },
+        { name: 'Chris', message: 'from the first note to the final bow, lily commands every second of the stage. pure electrifying talent. cannot wait for what comes next.', created_at: new Date(Date.now() - 3888000000).toISOString() },
+      ];
+
+      function formatTime(isoString) {
+        const diff = Math.floor((Date.now() - new Date(isoString).getTime()) / 1000);
+        if (diff < 60) return 'just now';
+        if (diff < 3600) return Math.floor(diff / 60) + 'm ago';
+        if (diff < 86400) return Math.floor(diff / 3600) + 'h ago';
+        if (diff < 604800) return Math.floor(diff / 86400) + 'd ago';
+        return Math.floor(diff / 604800) + 'w ago';
+      }
+
+      function supabaseFetch(path, options = {}) {
+        return fetch(SUPABASE_URL + path, {
+          ...options,
+          headers: {
+            'apikey': SUPABASE_KEY,
+            'Authorization': 'Bearer ' + SUPABASE_KEY,
+            'Content-Type': 'application/json',
+            ...options.headers,
+          },
+        });
+      }
+
+      async function loadMessages() {
+        try {
+          const res = await supabaseFetch('/rest/v1/messages?select=*&order=created_at.desc&limit=100');
+          if (!res.ok) throw new Error();
+          const data = await res.json();
+          if (data.length > 0) return data;
+        } catch {}
+        return SEED_MESSAGES;
+      }
+
+      async function renderMessages() {
+        const wall = document.getElementById('gbWall');
+        const count = document.getElementById('gbCount');
+        const messages = await loadMessages();
+        count.textContent = messages.length + ' message' + (messages.length !== 1 ? 's' : '');
+        wall.innerHTML = messages.map(m => `
+          <div class="gb-message">
+            <div class="gb-msg-header">
+              <span class="gb-msg-name">✦ ${m.name}</span>
+              <span class="gb-msg-time">${formatTime(m.created_at)}</span>
+            </div>
+            <div class="gb-msg-text">${m.message}</div>
+          </div>
+        `).join('');
+      }
+
+      const form = document.getElementById('guestbookForm');
+      const nameInput = document.getElementById('gbName');
+      const msgInput = document.getElementById('gbMessage');
+      const formNote = document.getElementById('gbFormNote');
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const name = nameInput.value.trim();
+        const message = msgInput.value.trim();
+        if (!name || !message) return;
+
+        const btn = form.querySelector('.gb-submit');
+        btn.disabled = true;
+        btn.style.opacity = '0.5';
+
+        try {
+          const res = await supabaseFetch('/rest/v1/messages', {
+            method: 'POST',
+            body: JSON.stringify({ name, message }),
+          });
+          if (!res.ok) throw new Error();
+          nameInput.value = '';
+          msgInput.value = '';
+          formNote.textContent = '💚 message sent!';
+          renderMessages();
+        } catch {
+          formNote.textContent = '💔 could not send — try again!';
+        }
+
+        btn.disabled = false;
+        btn.style.opacity = '1';
+        setTimeout(() => { formNote.textContent = ''; }, 3000);
+      });
+
+      msgInput.addEventListener('input', () => {
+        const remaining = 500 - msgInput.value.length;
+        formNote.textContent = remaining < 50 ? remaining + ' characters remaining' : '';
+      });
+
+      renderMessages();
+    });
+  </script>
+</body>
+</html>

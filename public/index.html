@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Lily St. Drake | Guestbook</title>
-  <meta name="description" content="Leave a message for Lily St. Drake">
+  <title>Lily St. Drake | Professional Drag Artist</title>
+  <meta name="description" content="Lily St. Drake - Professional drag artist and entertainer. LSD - Take a trip you'll never forget.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700;900&family=Outfit:wght@300;400;500;600;700;800&family=Space+Mono:wght@400;700&family=Patrick+Hand&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700;900&family=Outfit:wght@300;400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/assets/css/style.css">
 </head>
 <body>
@@ -26,46 +26,21 @@
     <span class="nav-logo">LSD</span>
   </nav>
 
-  <!-- Main Content -->
-  <main class="guestbook">
-    <!-- Header -->
-    <div class="gb-header">
-      <div class="gb-heart">💚</div>
-      <h1 class="gb-title">THE GUESTBOOK</h1>
-      <p class="gb-subtitle">Leave a message for Lily</p>
-      <div class="gb-divider">◇ ◇ ◇</div>
-    </div>
-
-    <!-- Form -->
-    <form class="gb-form" id="guestbookForm">
-      <div class="gb-form-row">
-        <input type="text" id="gbName" placeholder="Your name" maxlength="40" required class="gb-input" autocomplete="off">
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="hero-overlay">
+      <div class="hero-content">
+        <p class="hero-subtitle">PROFESSIONAL DRAG ARTIST</p>
+        <h1 class="hero-title">
+          <span class="title-lily">LILY</span>
+          <span class="title-st">ST.</span>
+          <span class="title-drake">DRAKE</span>
+        </h1>
+        <p class="hero-tagline">COMING SOON</p>
+        <a href="/guestbook" class="hero-cta-btn">LEAVE A MESSAGE ✦</a>
       </div>
-      <div class="gb-form-row">
-        <textarea id="gbMessage" placeholder="Write something sweet, wild, or unforgettable..." maxlength="500" required class="gb-input gb-textarea"></textarea>
-      </div>
-      <button type="submit" class="gb-submit" id="gbSubmitBtn">
-        <span class="gb-submit-text">SEND</span>
-        <span class="gb-submit-icon">✦</span>
-      </button>
-      <p class="gb-form-note" id="gbFormNote"></p>
-    </form>
-
-    <!-- Divider -->
-    <div class="gb-divider gb-divider-wall">◇ ◇ ◇</div>
-
-    <!-- Message Wall -->
-    <div class="gb-wall-header">
-      <h2 class="gb-wall-title">Messages</h2>
-      <span class="gb-count" id="gbCount">0 messages</span>
     </div>
-    <div class="gb-wall" id="gbWall"></div>
-
-    <!-- Footer -->
-    <div class="gb-footer">
-      <p class="gb-footer-text">Every message goes straight to Lily's heart 💚</p>
-    </div>
-  </main>
+  </section>
 
   <script src="/hero.js"></script>
   <script src="/assets/js/main.js"></script>
