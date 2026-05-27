@@ -6,12 +6,12 @@
   <title>Lily St. Drake | Guestbook</title>
   <meta name="description" content="Leave a message for Lily St. Drake">
   <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💚</text></svg>">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700;900&family=Outfit:wght@200;300;400;600;700&family=Space+Mono:wght@400;700&family=Patrick+Hand&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@700;900&family=Outfit:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&family=Patrick+Hand&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/assets/css/style.css">
 </head>
 <body>
-  <!-- Loading Screen -->
   <div class="loader" id="loader">
     <div class="loader-logo">LSD</div>
     <div class="loader-bar">
@@ -19,12 +19,16 @@
     </div>
   </div>
 
-  <canvas id="hero-canvas"></canvas>
+  <div class="site-bg">
+    <div class="site-bg-glow"></div>
+    <div class="site-bg-noise"></div>
+    <div class="site-bg-watermark">LSD</div>
+  </div>
 
-  <!-- Navigation -->
-  <nav class="nav" id="nav">
+  <nav class="nav">
     <a href="/" class="nav-logo">LSD</a>
-    <span class="nav-glyph">◈</span>
+    <span class="nav-sep">✦</span>
+    <span class="nav-tagline">Professional Drag Artist</span>
   </nav>
 
   <!-- Main Content -->
@@ -64,7 +68,6 @@
     </div>
   </main>
 
-  <script src="/hero.js"></script>
   <script src="/assets/js/main.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
