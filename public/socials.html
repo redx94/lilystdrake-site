@@ -1,160 +1,148 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lily St. Drake | Socials & Links</title>
-    <meta name="description" content="Connect with Lily St. Drake on all platforms">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/assets/css/style.css">
-    <style>
-        .socials-page {
-            min-height: 100vh;
-            padding: 8rem 2rem 4rem;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-        .socials-header {
-            text-align: center;
-            margin-bottom: 3rem;
-        }
-        .socials-header h1 {
-            font-size: 2.5rem;
-            color: var(--neon-bright);
-            animation: neonFlicker 4s infinite;
-            margin-bottom: 0.5rem;
-        }
-        .socials-header p {
-            color: var(--text-secondary);
-        }
-        .social-link {
-            display: flex;
-            align-items: center;
-            gap: 1.5rem;
-            padding: 1.5rem;
-            margin-bottom: 1rem;
-            background: var(--dark-card);
-            border: 1px solid rgba(57, 255, 20, 0.2);
-            text-decoration: none;
-            color: var(--text-primary);
-            transition: all 0.3s ease;
-        }
-        .social-link:hover {
-            transform: translateX(10px);
-            border-color: var(--neon-bright);
-            box-shadow: 0 0 20px rgba(57, 255, 20, 0.3);
-        }
-        .social-link-icon {
-            width: 60px;
-            height: 60px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: var(--neon-bright);
-            color: var(--void);
-            font-size: 1.5rem;
-            font-weight: 800;
-            flex-shrink: 0;
-        }
-        .social-link-info h3 {
-            font-size: 1.2rem;
-            margin-bottom: 0.2rem;
-        }
-        .social-link-info p {
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-        }
-        .back-link {
-            display: block;
-            text-align: center;
-            margin-top: 3rem;
-            color: var(--neon-bright);
-            text-decoration: none;
-        }
-        .back-link:hover {
-            text-shadow: 0 0 10px var(--neon-bright);
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lily St. Drake | Socials & Links</title>
+  <meta name="description" content="Connect with Lily St. Drake on all platforms">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Montserrat:wght@300;700;800;900&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: { void: '#050505', acid: '#39ff14', 'neon-yellow': '#d4ff00', 'text-primary': '#e8e8e8', 'text-dim': '#666666', 'border-subtle': 'rgba(57, 255, 20, 0.08)' },
+          fontFamily: { montserrat: ['Montserrat', 'sans-serif'], inter: ['Inter', 'sans-serif'] },
+        },
+      },
+    }
+  </script>
+  <style>
+    :root { --void: #050505; --acid: #39ff14; --neon-yellow: #d4ff00; --text-primary: #e8e8e8; --text-dim: #666666; --border-subtle: rgba(57,255,20,0.08); }
+    html { scroll-behavior: smooth; }
+    body { background: var(--void); color: var(--text-primary); font-family: 'Inter', sans-serif; overflow-x: hidden; }
+    .panel-surface { background: rgba(12,12,12,0.85); border: 1px solid var(--border-subtle); }
+    .section-title-glow { text-shadow: 0 0 30px rgba(57,255,20,0.4); }
+    @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.16,1,0.3,1); }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    body { cursor: auto; }
+  </style>
 </head>
 <body>
-    <nav class="nav">
-        <div class="nav-container">
-            <a href="/" class="nav-logo">LSD</a>
-            <ul class="nav-links">
-                <li><a href="/">Home</a></li>
-                <li><a href="/#about">About</a></li>
-                <li><a href="/#gallery">Gallery</a></li>
-                <li><a href="/#booking">Bookings</a></li>
-            </ul>
-        </div>
-    </nav>
+  <!-- Starfield -->
+  <canvas id="starfield" class="fixed top-0 left-0 w-screen h-screen" style="z-index: 0"></canvas>
 
-    <div class="socials-page">
-        <div class="socials-header">
-            <h1>Lily St. Drake</h1>
-            <p>Connect with me everywhere</p>
-        </div>
-
-        <a href="https://www.instagram.com/lilyst.drake" target="_blank" rel="noopener" class="social-link">
-            <div class="social-link-icon">IG</div>
-            <div class="social-link-info">
-                <h3>Instagram</h3>
-                <p>@lilyst.drake</p>
-            </div>
-        </a>
-
-        <a href="https://www.tiktok.com/@lilystdrake" target="_blank" rel="noopener" class="social-link">
-            <div class="social-link-icon">TT</div>
-            <div class="social-link-info">
-                <h3>TikTok</h3>
-                <p>@lilystdrake</p>
-            </div>
-        </a>
-
-        <a href="https://twitter.com/lilystdrake" target="_blank" rel="noopener" class="social-link">
-            <div class="social-link-icon">X</div>
-            <div class="social-link-info">
-                <h3>X / Twitter</h3>
-                <p>@lilystdrake</p>
-            </div>
-        </a>
-
-        <a href="https://www.youtube.com/@lilystdrake" target="_blank" rel="noopener" class="social-link">
-            <div class="social-link-icon">YT</div>
-            <div class="social-link-info">
-                <h3>YouTube</h3>
-                <p>Lily St. Drake</p>
-            </div>
-        </a>
-
-        <a href="mailto:bookings@lilystdrake.com" class="social-link">
-            <div class="social-link-icon">@</div>
-            <div class="social-link-info">
-                <h3>Email</h3>
-                <p>bookings@lilystdrake.com</p>
-            </div>
-        </a>
-
-        <a href="https://linktr.ee/lilystdrake" target="_blank" rel="noopener" class="social-link">
-            <div class="social-link-icon">🔗</div>
-            <div class="social-link-info">
-                <h3>Linktree</h3>
-                <p>All links in one place</p>
-            </div>
-        </a>
-
-        <a href="/" class="back-link">← Back to Main Site</a>
+  <!-- Nav -->
+  <nav id="navbar" class="fixed top-0 left-0 right-0 h-16 flex items-center justify-between px-6 md:px-10 transition-all duration-500" style="z-index: 50; background: transparent;">
+    <a href="/" class="font-montserrat font-bold text-sm tracking-[0.15em] text-acid hover:text-neon-yellow transition-colors duration-200">LSD</a>
+    <div class="hidden lg:flex items-center gap-6">
+      <a href="/" class="font-inter font-medium text-sm tracking-[0.08em] text-text-dim hover:text-acid transition-all duration-200">HOME</a>
+      <a href="/#gallery" class="font-inter font-medium text-sm tracking-[0.08em] text-text-dim hover:text-acid transition-all duration-200">GALLERY</a>
+      <a href="/#bookings" class="font-inter font-medium text-sm tracking-[0.08em] text-text-dim hover:text-acid transition-all duration-200">BOOKINGS</a>
+      <a href="/#connect" class="font-inter font-medium text-sm tracking-[0.08em] text-text-dim hover:text-acid transition-all duration-200">CONNECT</a>
     </div>
+    <button onclick="document.getElementById('mobileMenu').style.display='flex'" class="lg:hidden text-acid" aria-label="Menu">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+  </nav>
+  <div id="mobileMenu" class="fixed inset-0 flex flex-col items-center justify-center gap-8" style="z-index: 100; background: rgba(5,5,5,0.97); display: none;">
+    <button onclick="document.getElementById('mobileMenu').style.display='none'" class="absolute top-5 right-6 text-acid"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    <a href="/" onclick="document.getElementById('mobileMenu').style.display='none'" class="font-montserrat font-extrabold text-3xl text-acid tracking-tight" style="animation: fadeInUp 0.5s 0s forwards">HOME</a>
+    <a href="/#gallery" onclick="document.getElementById('mobileMenu').style.display='none'" class="font-montserrat font-extrabold text-3xl text-acid tracking-tight" style="animation: fadeInUp 0.5s 0.08s forwards">GALLERY</a>
+    <a href="/#bookings" onclick="document.getElementById('mobileMenu').style.display='none'" class="font-montserrat font-extrabold text-3xl text-acid tracking-tight" style="animation: fadeInUp 0.5s 0.16s forwards">BOOKINGS</a>
+    <a href="/#connect" onclick="document.getElementById('mobileMenu').style.display='none'" class="font-montserrat font-extrabold text-3xl text-acid tracking-tight" style="animation: fadeInUp 0.5s 0.24s forwards">CONNECT</a>
+  </div>
 
-    <footer class="footer">
-        <div class="footer-content">
-            <div class="footer-logo">Lily St. Drake</div>
-            <div class="footer-copyright">© 2026 Lily St. Drake LLC. All rights reserved.</div>
+  <!-- Main -->
+  <main class="relative min-h-screen flex items-center py-24" style="z-index: 1">
+    <div class="max-w-[600px] mx-auto px-6 md:px-10 w-full">
+      <div class="text-center mb-12">
+        <span class="font-inter font-semibold text-xs tracking-[0.15em] text-acid uppercase block mb-4 reveal">CONNECT</span>
+        <h1 class="font-montserrat font-extrabold text-acid section-title-glow reveal" style="font-size: clamp(2rem,5vw,3.5rem); line-height: 1.1;">LILY ST. DRAKE</h1>
+        <p class="font-inter text-text-dim mt-4 reveal reveal-delay-1">Find me everywhere</p>
+      </div>
+      <div id="socialGrid" class="space-y-3"></div>
+      <div class="text-center mt-10 reveal">
+        <a href="/" class="font-inter font-semibold text-xs tracking-[0.15em] text-acid uppercase hover:text-neon-yellow transition-colors duration-200">&larr; BACK TO MAIN SITE</a>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="relative py-8" style="z-index: 1">
+    <div class="max-w-[1200px] mx-auto px-6 md:px-10 pt-6 border-t border-border-subtle text-center">
+      <p class="font-inter font-semibold text-xs tracking-[0.15em] text-text-dim uppercase">&copy; 2026 Lily St. Drake LLC. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="/distortion-cursor.js"></script>
+  <script>
+    // Starfield
+    (function() {
+      const canvas = document.getElementById('starfield');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      if (!ctx) return;
+      const COLORS = ['#39FF14','#32CD32','#228B22','#7CFC00','#ADFF2F','#00FF41','#66FF00','#B2FF00','#CCFF00','#E5FF00','#FFFF00','#FFD700','#00FA9A','#00FF7F'];
+      if (window.innerWidth < 768) { canvas.style.background = 'radial-gradient(circle at center, rgba(57,255,20,0.05) 0%, rgba(5,5,5,1) 70%)'; return; }
+      let W, H, particles = [], rafId, baseSpeed = 0.25, scrollBoost = 0, lastScroll = 0;
+      function resize() { W = window.innerWidth; H = window.innerHeight; canvas.width = W; canvas.height = H; initParticles(); }
+      function initParticles() { particles = []; for (let i = 0; i < 2000; i++) { particles.push({ x: Math.random() * W, y: Math.random() * H, size: Math.random() * 1.5 + 0.5, speed: (Math.random() * 0.5 + 0.5) * baseSpeed, opacity: Math.random() * 0.5 + 0.3, color: COLORS[Math.floor(Math.random() * COLORS.length)] }); } }
+      function render() {
+        ctx.clearRect(0, 0, W, H);
+        ctx.save(); ctx.globalCompositeOperation = 'lighter';
+        for (const p of particles) { const s = p.speed + scrollBoost; p.y -= s; if (p.y + p.size < 0) { p.y = H + p.size; p.x = Math.random() * W; } ctx.globalAlpha = p.opacity; ctx.fillStyle = p.color; ctx.beginPath(); ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2); ctx.fill(); }
+        ctx.restore();
+        const gx = W / 200, gy = H / 200;
+        ctx.strokeStyle = 'rgba(57,255,20,0.08)'; ctx.lineWidth = 1; ctx.beginPath();
+        for (let c = 0; c <= 200; c++) { ctx.moveTo(c * gx, 0); ctx.lineTo(c * gx, H); }
+        for (let r = 0; r <= 200; r++) { ctx.moveTo(0, r * gy); ctx.lineTo(W, r * gy); }
+        ctx.stroke();
+        const cx = W / 2, cy = H / 2, grad = ctx.createRadialGradient(cx, cy, W * 0.2, cx, cy, W * 0.8);
+        grad.addColorStop(0, 'rgba(5,5,5,0)'); grad.addColorStop(1, 'rgba(5,5,5,0.9)');
+        ctx.fillStyle = grad; ctx.fillRect(0, 0, W, H);
+        scrollBoost *= 0.95; if (scrollBoost < 0.001) scrollBoost = 0;
+        rafId = requestAnimationFrame(render);
+      }
+      window.addEventListener('scroll', () => { const d = Math.abs(window.scrollY - lastScroll); scrollBoost = Math.min(d * 0.01, 2); lastScroll = window.scrollY; }, { passive: true });
+      let rt; window.addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(resize, 150); });
+      document.fonts.ready.then(() => { requestAnimationFrame(() => { resize(); rafId = requestAnimationFrame(render); }); });
+    })();
+
+    // Nav scroll
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => { const s = window.scrollY > 100; navbar.style.background = s ? 'rgba(5,5,5,0.9)' : 'transparent'; navbar.style.backdropFilter = s ? 'blur(12px)' : 'none'; }, { passive: true });
+
+    // Reveal observer
+    const ro = new IntersectionObserver((entries) => { entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }); }, { threshold: 0.15 });
+    document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
+
+    // Social data
+    const SOCIALS = [
+      { name: 'Instagram', handle: '@lilyst.drake', url: 'https://www.instagram.com/lilyst.drake', svg: '<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#39ff14" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5" fill="#39ff14"/></svg>' },
+      { name: 'TikTok', handle: '@lilystdrake', url: 'https://www.tiktok.com/@lilystdrake', svg: '<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#39ff14" stroke-width="1.5"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/></svg>' },
+      { name: 'Email', handle: 'bookings@lilystdrake.com', url: 'mailto:bookings@lilystdrake.com', svg: '<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#39ff14" stroke-width="1.5"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 7l-10 7L2 7"/></svg>' },
+      { name: 'YouTube', handle: 'Lily St. Drake', url: 'https://www.youtube.com/@lilystdrake', svg: '<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#39ff14" stroke-width="1.5"><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"/><rect x="2" y="3" width="20" height="18" rx="3"/></svg>' },
+      { name: 'Linktree', handle: 'All links in one place', url: 'https://linktr.ee/lilystdrake', svg: '<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#39ff14" stroke-width="1.5"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>' },
+    ];
+
+    const grid = document.getElementById('socialGrid');
+    grid.innerHTML = SOCIALS.map((s, i) => `
+      <a href="${s.url}" target="_blank" rel="noopener noreferrer" class="group flex items-center gap-4 panel-surface p-6 rounded-sm border border-border-subtle hover:border-acid hover:-translate-y-0.5 hover:shadow-acid-sm transition-all duration-200 reveal reveal-delay-${(i % 3) + 1}">
+        <div class="w-12 h-12 flex items-center justify-center flex-shrink-0">${s.svg}</div>
+        <div>
+          <p class="font-inter font-medium text-text-primary group-hover:text-acid transition-colors duration-200">${s.name}</p>
+          <p class="font-inter font-semibold text-xs tracking-[0.15em] text-text-dim uppercase mt-0.5">${s.handle}</p>
         </div>
-    </footer>
-
-    <script src="/assets/js/main.js"></script>
+      </a>
+    `).join('');
+    document.querySelectorAll('#socialGrid .reveal').forEach(el => ro.observe(el));
+  </script>
 </body>
 </html>
