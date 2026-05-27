@@ -1,23 +1,36 @@
-document.addEventListener('DOMContentLoaded', () => {
-  // Safari 100vh fix
-  function setViewportHeight() {
-    const vh = window.innerHeight * 0.01;
-    document.documentElement.style.setProperty('--vh', `${vh}px`);
-  }
-  setViewportHeight();
-  window.addEventListener('resize', setViewportHeight);
+(function() {
+  'use strict';
 
-  // Loading screen
-  const loader = document.querySelector('.loader');
-  const loaderProgress = document.querySelector('.loader-progress');
-  let progress = 0;
-  const loadInterval = setInterval(() => {
-    progress += Math.random() * 15;
-    if (progress >= 100) {
-      progress = 100;
-      clearInterval(loadInterval);
-      setTimeout(() => loader.classList.add('hidden'), 400);
+  // Safari 100vh fix
+  function setVH() {
+    document.documentElement.style.setProperty('--vh', window.innerHeight * 0.01 + 'px');
+  }
+  setVH();
+  window.addEventListener('resize', setVH);
+
+  // Loading screen — deterministic, always completes in ~3s
+  var loader = document.querySelector('.loader');
+  var bar = document.querySelector('.loader-progress');
+  var p = 0;
+
+  var interval = setInterval(function() {
+    p += 8;
+    if (p >= 100) {
+      p = 100;
+      clearInterval(interval);
+      setTimeout(function() {
+        if (loader) loader.classList.add('hidden');
+      }, 500);
     }
-    if (loaderProgress) loaderProgress.style.width = progress + '%';
-  }, 200);
-});
+    if (bar) bar.style.width = p + '%';
+  }, 250);
+
+  // Safety: force-complete after 6s regardless
+  setTimeout(function() {
+    if (loader && !loader.classList.contains('hidden')) {
+      clearInterval(interval);
+      if (bar) bar.style.width = '100%';
+      setTimeout(function() { loader.classList.add('hidden'); }, 200);
+    }
+  }, 6000);
+})();
