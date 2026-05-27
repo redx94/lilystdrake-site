@@ -6,6 +6,8 @@
 (function() {
   'use strict';
 
+  if (window.innerWidth < 768 || ('ontouchstart' in window)) return;
+
   // Configuration
   const CONFIG = {
     radius: 150,
