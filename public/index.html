@@ -4,610 +4,630 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Lily St. Drake | Professional Drag Artist</title>
-  <meta name="description" content="Lily St. Drake - Professional Drag Artist. Not Your Local Queen. Based in Chicago, available worldwide.">
+  <meta name="description" content="Lily St. Drake - Professional drag artist and entertainer. Available for bookings, performances, and events. LSD - Take a trip you'll never forget.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Montserrat:wght@300;700;800;900&display=swap" rel="stylesheet">
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      darkMode: 'class',
-      theme: {
-        extend: {
-          colors: {
-            void: '#050505',
-            surface: 'rgba(12, 12, 12, 0.85)',
-            acid: '#39ff14',
-            'neon-yellow': '#d4ff00',
-            'text-primary': '#e8e8e8',
-            'text-dim': '#666666',
-            'border-subtle': 'rgba(57, 255, 20, 0.08)',
-          },
-          fontFamily: {
-            montserrat: ['Montserrat', 'sans-serif'],
-            inter: ['Inter', 'sans-serif'],
-          },
-          boxShadow: {
-            'acid': '0 0 20px rgba(57, 255, 20, 0.4)',
-            'acid-sm': '0 0 15px rgba(57, 255, 20, 0.15)',
-          },
-        },
-      },
-    }
-  </script>
-  <style>
-    :root {
-      --void: #050505;
-      --surface: rgba(12, 12, 12, 0.85);
-      --acid: #39ff14;
-      --neon-yellow: #d4ff00;
-      --text-primary: #e8e8e8;
-      --text-dim: #666666;
-      --border-subtle: rgba(57, 255, 20, 0.08);
-    }
-    html { scroll-behavior: smooth; }
-    body {
-      background-color: var(--void);
-      color: var(--text-primary);
-      font-family: 'Inter', sans-serif;
-      overflow-x: hidden;
-      -webkit-font-smoothing: antialiased;
-    }
-    .acid-glow {
-      text-shadow: 0 0 40px rgba(57, 255, 20, 0.6), 0 0 80px rgba(57, 255, 20, 0.3);
-    }
-    .section-title-glow {
-      text-shadow: 0 0 30px rgba(57, 255, 20, 0.4);
-    }
-    .panel-surface {
-      background: var(--surface);
-      border: 1px solid var(--border-subtle);
-    }
-    @keyframes pulse-line {
-      0%, 100% { opacity: 0.3; }
-      50% { opacity: 0.8; }
-    }
-    @keyframes pulse-play {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.05); }
-    }
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes scaleXIn {
-      from { transform: scaleX(0); }
-      to { transform: scaleX(1); }
-    }
-    .reveal {
-      opacity: 0;
-      transform: translateY(30px);
-      transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .reveal.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    .reveal-delay-1 { transition-delay: 0.1s; }
-    .reveal-delay-2 { transition-delay: 0.2s; }
-    .reveal-delay-3 { transition-delay: 0.3s; }
-    .reveal-delay-4 { transition-delay: 0.4s; }
-    .reveal-delay-5 { transition-delay: 0.5s; }
-    .reveal-delay-6 { transition-delay: 0.6s; }
-    .scrollbar-hide::-webkit-scrollbar { display: none; }
-    .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
-    input, select, textarea {
-      background: rgba(255,255,255,0.03);
-      border: 1px solid var(--border-subtle);
-      color: var(--text-primary);
-      padding: 0.75rem 1rem;
-      border-radius: 0.125rem;
-      outline: none;
-      transition: all 0.2s;
-    }
-    input:focus, select:focus, textarea:focus {
-      border-color: var(--acid);
-      box-shadow: 0 0 0 2px rgba(57,255,20,0.1);
-    }
-    input::placeholder, textarea::placeholder { color: var(--text-dim); }
-    select option { background: var(--void); }
-    .gallery-img {
-      opacity: 0;
-      transition: opacity 0.6s ease;
-    }
-    .gallery-img.loaded { opacity: 1; }
-  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700;900&family=Outfit:wght@300;400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/css/style.css">
 </head>
 <body>
   <!-- Loading Screen -->
-  <div class="loader" id="loader">
+  <div class="loader">
     <div class="loader-logo">LSD</div>
     <div class="loader-bar">
-      <div class="loader-progress" id="loaderProgress" style="width: 0%"></div>
+      <div class="loader-progress" style="width: 0%"></div>
     </div>
   </div>
 
-  <!-- Hero Canvas Background (full viewport) -->
-  <canvas id="hero-canvas" class="fixed top-0 left-0 w-screen h-screen" style="z-index: 0"></canvas>
-
   <!-- Navigation -->
-  <nav id="navbar" class="fixed top-0 left-0 right-0 h-16 flex items-center justify-between px-6 md:px-10 transition-all duration-500" style="z-index: 50; background: transparent;">
-    <button onclick="scrollToSection('hero')" class="font-montserrat font-bold text-sm tracking-[0.15em] text-acid hover:text-neon-yellow transition-colors duration-200">LSD</button>
-    <div class="hidden lg:flex items-center gap-6" id="desktopNav">
-      <a href="#hero" class="nav-link font-inter font-medium text-sm tracking-[0.08em] transition-all duration-200 hover:text-acid" style="color: #666">THE VOID</a>
-      <a href="#about" class="nav-link font-inter font-medium text-sm tracking-[0.08em] transition-all duration-200 hover:text-acid" style="color: #666">THE ALTER</a>
-      <a href="#gallery" class="nav-link font-inter font-medium text-sm tracking-[0.08em] transition-all duration-200 hover:text-acid" style="color: #666">THE ARCHIVE</a>
-      <a href="#videos" class="nav-link font-inter font-medium text-sm tracking-[0.08em] transition-all duration-200 hover:text-acid" style="color: #666">THE RITUALS</a>
-      <a href="#bookings" class="nav-link font-inter font-medium text-sm tracking-[0.08em] transition-all duration-200 hover:text-acid" style="color: #666">THE SUMMONING</a>
-      <a href="#support" class="nav-link font-inter font-medium text-sm tracking-[0.08em] transition-all duration-200 hover:text-acid" style="color: #666">THE TITHING</a>
-      <a href="#connect" class="nav-link font-inter font-medium text-sm tracking-[0.08em] transition-all duration-200 hover:text-acid" style="color: #666">CONNECT</a>
-    </div>
-    <button onclick="toggleMobileMenu()" class="lg:hidden text-acid" aria-label="Open menu">
-      <svg id="menuIcon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+  <nav class="nav" id="nav">
+    <a href="/" class="nav-logo">LSD</a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#the-void">THE VOID</a></li>
+      <li><a href="#the-alter">THE ALTER</a></li>
+      <li><a href="#the-archive">THE ARCHIVE</a></li>
+      <li><a href="#the-rituals">THE RITUALS</a></li>
+      <li><a href="#the-summoning">THE SUMMONING</a></li>
+      <li><a href="#the-tithing">THE TITHING</a></li>
+      <li><a href="/socials">CONNECT</a></li>
+    </ul>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+      <span></span>
+      <span></span>
+      <span></span>
     </button>
   </nav>
 
-  <!-- Mobile Menu Overlay -->
-  <div id="mobileMenu" class="fixed inset-0 flex flex-col items-center justify-center gap-8" style="z-index: 100; background: rgba(5,5,5,0.97); display: none;">
-    <button onclick="toggleMobileMenu()" class="absolute top-5 right-6 text-acid" aria-label="Close menu">
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-    </button>
-    <a href="#hero" onclick="toggleMobileMenu()" class="font-montserrat font-extrabold text-3xl text-acid tracking-tight" style="animation: fadeInUp 0.5s 0s cubic-bezier(0.16,1,0.3,1) forwards">THE VOID</a>
-    <a href="#about" onclick="toggleMobileMenu()" class="font-montserrat font-extrabold text-3xl text-acid tracking-tight" style="animation: fadeInUp 0.5s 0.08s cubic-bezier(0.16,1,0.3,1) forwards">THE ALTER</a>
-    <a href="#gallery" onclick="toggleMobileMenu()" class="font-montserrat font-extrabold text-3xl text-acid tracking-tight" style="animation: fadeInUp 0.5s 0.16s cubic-bezier(0.16,1,0.3,1) forwards">THE ARCHIVE</a>
-    <a href="#videos" onclick="toggleMobileMenu()" class="font-montserrat font-extrabold text-3xl text-acid tracking-tight" style="animation: fadeInUp 0.5s 0.24s cubic-bezier(0.16,1,0.3,1) forwards">THE RITUALS</a>
-    <a href="#bookings" onclick="toggleMobileMenu()" class="font-montserrat font-extrabold text-3xl text-acid tracking-tight" style="animation: fadeInUp 0.5s 0.32s cubic-bezier(0.16,1,0.3,1) forwards">THE SUMMONING</a>
-    <a href="#support" onclick="toggleMobileMenu()" class="font-montserrat font-extrabold text-3xl text-acid tracking-tight" style="animation: fadeInUp 0.5s 0.4s cubic-bezier(0.16,1,0.3,1) forwards">THE TITHING</a>
-    <a href="#connect" onclick="toggleMobileMenu()" class="font-montserrat font-extrabold text-3xl text-acid tracking-tight" style="animation: fadeInUp 0.5s 0.48s cubic-bezier(0.16,1,0.3,1) forwards">CONNECT</a>
+  <!-- Hero Section - THE VOID -->
+  <section id="void" class="hero-section">
+    <canvas id="hero-canvas"></canvas>
+    <div class="hero-overlay">
+      <div class="hero-content">
+        <p class="hero-subtitle">PROFESSIONAL DRAG ARTIST</p>
+        <h1 class="hero-title">
+          <span class="title-lily">LILY</span>
+          <span class="title-st">ST.</span>
+          <span class="title-drake">DRAKE</span>
+        </h1>
+        <p class="hero-tagline">NOT YOUR LOCAL QUEEN</p>
+        <div class="hero-cta">
+          <a href="#the-summoning" class="btn btn-primary">ENTER THE VOID</a>
+          <a href="#the-archive" class="btn btn-outline">WITNESS THE CHAOS</a>
+        </div>
+      </div>
+    </div>
+    <div class="scroll-indicator">
+      <span>DESCEND</span>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="the-alter" class="section section-dark">
+    <div class="section-header animate-on-scroll">
+      <p class="section-label">// THE ORIGIN</p>
+      <h2 class="section-title">THE ALTER</h2>
+    </div>
+    <div class="about">
+      <div class="about-image animate-on-scroll">
+        <div class="about-image-inner">
+          <div class="gallery-placeholder-icon">◆</div>
+          <div class="gallery-placeholder-text" style="margin-top: 0.5rem; font-size: 0.6rem;">Photo Coming Soon</div>
+        </div>
+      </div>
+      <div class="about-content animate-on-scroll">
+        <h3>More Than Just a Pretty Face</h3>
+        <p>Lily St. Drake is a professional drag artist and entertainer who brings a unique blend of glamour, comedy, and mind-bending performance art to every stage. With the intentional nod to the psychedelic experience, Lily's performances are designed to take audiences on a journey they won't forget.</p>
+        <p>From high-energy club performances to sophisticated corporate events, Lily delivers unforgettable entertainment that pushes boundaries and breaks expectations. Every show is a unique experience, a chance to escape reality and enter a world of color, music, and pure entertainment.</p>
+        <p>With a growing following and a reputation for professionalism, Lily St. Drake is quickly becoming one of the most sought-after drag artists in the scene.</p>
+        <div class="about-stats">
+          <div class="stat">
+            <div class="stat-number">100+</div>
+            <div class="stat-label">Shows Performed</div>
+          </div>
+          <div class="stat">
+            <div class="stat-number">50+</div>
+            <div class="stat-label">Unique Looks</div>
+          </div>
+          <div class="stat">
+            <div class="stat-number">5★</div>
+            <div class="stat-label">Client Rating</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Gallery Section -->
+  <section id="the-archive" class="section section-surface">
+    <div class="section-header animate-on-scroll">
+      <p class="section-label">The Looks</p>
+      <h2 class="section-title">Gallery</h2>
+      <p class="section-subtitle">Every performance, a masterpiece. Browse through Lily's iconic looks.</p>
+      <div class="divider"></div>
+    </div>
+    <div class="gallery-filters animate-on-scroll">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="performance">Performances</button>
+      <button class="filter-btn" data-filter="editorial">Editorial</button>
+      <button class="filter-btn" data-filter="collab">Collaborations</button>
+    </div>
+    <div class="gallery-grid animate-on-scroll">
+      <div class="gallery-item" data-category="performance">
+        <div class="gallery-placeholder">
+          <div class="gallery-placeholder-icon">◆</div>
+          <div class="gallery-placeholder-text">Gallery Loading</div>
+          <div class="gallery-placeholder-badge">COMING SOON</div>
+        </div>
+        <div class="gallery-overlay">
+          <div class="gallery-title">Opening Number</div>
+          <div class="gallery-category">Performance</div>
+        </div>
+      </div>
+      <div class="gallery-item" data-category="editorial">
+        <div class="gallery-placeholder">
+          <div class="gallery-placeholder-icon">◆</div>
+          <div class="gallery-placeholder-text">Gallery Loading</div>
+          <div class="gallery-placeholder-badge">COMING SOON</div>
+        </div>
+        <div class="gallery-overlay">
+          <div class="gallery-title">Neon Dreams</div>
+          <div class="gallery-category">Editorial</div>
+        </div>
+      </div>
+      <div class="gallery-item" data-category="performance">
+        <div class="gallery-placeholder">
+          <div class="gallery-placeholder-icon">◆</div>
+          <div class="gallery-placeholder-text">Gallery Loading</div>
+          <div class="gallery-placeholder-badge">COMING SOON</div>
+        </div>
+        <div class="gallery-overlay">
+          <div class="gallery-title">Green Goddess</div>
+          <div class="gallery-category">Performance</div>
+        </div>
+      </div>
+      <div class="gallery-item" data-category="collab">
+        <div class="gallery-placeholder">
+          <div class="gallery-placeholder-icon">◆</div>
+          <div class="gallery-placeholder-text">Gallery Loading</div>
+          <div class="gallery-placeholder-badge">COMING SOON</div>
+        </div>
+        <div class="gallery-overlay">
+          <div class="gallery-title">Acid Elegance</div>
+          <div class="gallery-category">Collaboration</div>
+        </div>
+      </div>
+      <div class="gallery-item" data-category="editorial">
+        <div class="gallery-placeholder">
+          <div class="gallery-placeholder-icon">◆</div>
+          <div class="gallery-placeholder-text">Gallery Loading</div>
+          <div class="gallery-placeholder-badge">COMING SOON</div>
+        </div>
+        <div class="gallery-overlay">
+          <div class="gallery-title">Trippy Couture</div>
+          <div class="gallery-category">Editorial</div>
+        </div>
+      </div>
+      <div class="gallery-item" data-category="performance">
+        <div class="gallery-placeholder">
+          <div class="gallery-placeholder-icon">◆</div>
+          <div class="gallery-placeholder-text">Gallery Loading</div>
+          <div class="gallery-placeholder-badge">COMING SOON</div>
+        </div>
+        <div class="gallery-overlay">
+          <div class="gallery-title">Showstopper Finale</div>
+          <div class="gallery-category">Performance</div>
+        </div>
+      </div>
+    </div>
+    <div class="text-center animate-on-scroll" style="margin-top: 3rem;">
+      <a href="/gallery" class="btn btn-outline">View Full Gallery</a>
+    </div>
+  </section>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox-close">✕</button>
+    <div class="lightbox-content">
+      <div class="gallery-placeholder" id="lightbox-image" style="width: 600px; height: 400px;">
+        <div class="gallery-placeholder-icon">◆</div>
+        <div class="gallery-placeholder-text">Gallery Loading</div>
+      </div>
+      <div class="lightbox-info">
+        <h3 class="lightbox-title" id="lightbox-title">Title</h3>
+        <p class="lightbox-desc" id="lightbox-desc">Category</p>
+      </div>
+    </div>
   </div>
 
-  <!-- Main Content -->
-  <main class="relative" style="z-index: 1">
+  <!-- Videos Section -->
+  <section id="the-rituals" class="section section-dark">
+    <div class="section-header animate-on-scroll">
+      <p class="section-label">Performances</p>
+      <h2 class="section-title">Videos</h2>
+      <p class="section-subtitle">Watch Lily's performances and see the magic in action.</p>
+      <div class="divider"></div>
+    </div>
+    <div class="video-grid animate-on-scroll">
+      <div class="video-item">
+        <div class="video-placeholder">
+          <div class="video-placeholder-icon">▶</div>
+          <div class="video-placeholder-text">Performance Loading</div>
+          <div class="gallery-placeholder-badge">COMING SOON</div>
+        </div>
+        <div class="video-info">
+          <div class="video-title">LSD Experience - Full Performance</div>
+        </div>
+      </div>
+      <div class="video-item">
+        <div class="video-placeholder">
+          <div class="video-placeholder-icon">▶</div>
+          <div class="video-placeholder-text">Performance Loading</div>
+          <div class="gallery-placeholder-badge">COMING SOON</div>
+        </div>
+        <div class="video-info">
+          <div class="video-title">Neon Nights Club Set</div>
+        </div>
+      </div>
+      <div class="video-item">
+        <div class="video-placeholder">
+          <div class="video-placeholder-icon">▶</div>
+          <div class="video-placeholder-text">Performance Loading</div>
+          <div class="gallery-placeholder-badge">COMING SOON</div>
+        </div>
+        <div class="video-info">
+          <div class="video-title">Pride Main Stage 2025</div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    <!-- HERO SECTION -->
-    <section id="hero" class="relative flex items-center justify-center" style="height: 100vh; z-index: 1">
-      <div class="absolute left-0 right-0 pointer-events-none" style="top: 30%; border-top: 1px solid rgba(57,255,20,0.06)"></div>
-      <div class="absolute left-0 right-0 pointer-events-none" style="top: 80%; border-top: 1px solid rgba(57,255,20,0.06)"></div>
-      <div class="relative text-center px-6">
-        <p id="heroSubtitle" class="font-montserrat font-light tracking-[0.3em] text-text-dim mb-4" style="font-size: clamp(0.875rem,1.5vw,1.125rem); opacity: 0;">
-          PROFESSIONAL DRAG ARTIST
+  <!-- Testimonials -->
+  <section class="section section-surface">
+    <div class="section-header animate-on-scroll">
+      <p class="section-label">Reviews</p>
+      <h2 class="section-title">What People Say</h2>
+      <div class="divider"></div>
+    </div>
+    <div class="testimonials-grid animate-on-scroll">
+      <div class="testimonial-card">
+        <p class="testimonial-text">"Lily absolutely stole the show at our corporate event. Professional, punctual, and the most incredible energy. Our guests are still talking about it months later!"</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">SM</div>
+          <div class="testimonial-info">
+            <h4>Sarah M.</h4>
+            <p>Event Coordinator</p>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <p class="testimonial-text">"We've booked Lily three times now for our monthly drag nights. Each show is better than the last. The fans literally cheer for every look."</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">JT</div>
+          <div class="testimonial-info">
+            <h4>Jake T.</h4>
+            <p>Club Owner</p>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <p class="testimonial-text">"Booked Lily for my sister's bachelorette party and it was the best decision ever. Lily made everyone feel included and the photos are incredible."</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">MR</div>
+          <div class="testimonial-info">
+            <h4>Maria R.</h4>
+            <p>Private Client</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Booking Section -->
+  <section id="the-summoning" class="section section-dark">
+    <div class="section-header animate-on-scroll">
+      <p class="section-label">Get In Touch</p>
+      <h2 class="section-title">Bookings</h2>
+      <p class="section-subtitle">Let's create something unforgettable together.</p>
+      <div class="divider"></div>
+    </div>
+    <div class="booking animate-on-scroll">
+      <div class="booking-info">
+        <h3>Services & Pricing</h3>
+        <p style="color: var(--text-secondary); margin-bottom: 2rem;">All bookings include a consultation call to discuss your event, performance preferences, and any special requests. Travel fees may apply for events outside the local area.</p>
+        <div class="booking-services">
+          <div class="service-item">
+            <span class="service-name">Club Performances</span>
+            <span class="service-price">From $500</span>
+          </div>
+          <div class="service-item">
+            <span class="service-name">Private Events</span>
+            <span class="service-price">From $750</span>
+          </div>
+          <div class="service-item">
+            <span class="service-name">Corporate Events</span>
+            <span class="service-price">From $1,000</span>
+          </div>
+          <div class="service-item">
+            <span class="service-name">Pride Events</span>
+            <span class="service-price">From $600</span>
+          </div>
+          <div class="service-item">
+            <span class="service-name">Photo Shoots</span>
+            <span class="service-price">From $400</span>
+          </div>
+          <div class="service-item">
+            <span class="service-name">MC / Hosting</span>
+            <span class="service-price">From $500</span>
+          </div>
+        </div>
+        <p style="color: var(--text-muted); font-size: 0.9rem;">
+          📧 <a href="mailto:bookings@lilystdrake.com" style="color: var(--neon-bright);">bookings@lilystdrake.com</a><br>
+          ⏱️ Response within 24 hours
         </p>
-        <div class="flex flex-col items-center">
-          <div id="heroLily" class="font-montserrat font-black text-acid acid-glow" style="font-size: clamp(4rem,12vw,10rem); line-height: 0.9; letter-spacing: -0.02em; opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.16,1,0.3,1) 0.5s;">LILY</div>
-          <div id="heroSt" class="font-montserrat font-black text-neon-yellow" style="font-size: clamp(4rem,12vw,10rem); line-height: 0.9; letter-spacing: -0.02em; margin-left: 15%; opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.16,1,0.3,1) 0.7s;">ST.</div>
-          <div id="heroDrake" class="font-montserrat font-black text-acid acid-glow" style="font-size: clamp(4rem,12vw,10rem); line-height: 0.9; letter-spacing: -0.02em; opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.16,1,0.3,1) 0.9s;">DRAKE</div>
-        </div>
-        <p id="heroTagline" class="font-inter font-semibold text-xs text-acid uppercase mt-6" style="letter-spacing: 0.25em; opacity: 0; transition: all 0.6s cubic-bezier(0.16,1,0.3,1) 1.2s;">&#10022; NOT YOUR LOCAL QUEEN &#10022;</p>
-        <div id="heroCta" class="flex flex-col sm:flex-row items-center justify-center gap-4 mt-8" style="opacity: 0; transition: all 0.5s cubic-bezier(0.16,1,0.3,1) 1.4s;">
-          <a href="#about" class="font-inter font-medium text-sm tracking-[0.08em] bg-acid text-void px-8 py-3.5 rounded-sm hover:bg-neon-yellow hover:shadow-acid transition-all duration-200">ENTER THE VOID</a>
-          <a href="#gallery" class="font-inter font-medium text-sm tracking-[0.08em] bg-transparent text-acid border border-acid/40 px-8 py-3.5 rounded-sm hover:border-acid hover:bg-acid/10 transition-all duration-200">WITNESS THE CHAOS</a>
-        </div>
       </div>
-      <div id="scrollIndicator" class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2" style="opacity: 0; transition: opacity 0.6s cubic-bezier(0.16,1,0.3,1) 1.8s;">
-        <span class="font-inter font-semibold text-xs tracking-[0.15em] text-text-dim">DESCEND</span>
-        <div class="w-px h-10 bg-acid" style="animation: pulse-line 2s ease-in-out infinite; opacity: 0.3"></div>
-      </div>
-    </section>
-
-    <!-- ABOUT SECTION -->
-    <section id="about" class="relative min-h-screen flex items-center py-24" style="z-index: 1">
-      <div class="w-full max-w-[1200px] mx-auto px-6 md:px-10">
-        <div class="grid grid-cols-1 lg:grid-cols-[55%_45%] gap-12 lg:gap-16 items-center">
-          <div>
-            <span class="font-inter font-semibold text-xs tracking-[0.15em] text-acid uppercase block mb-4 reveal">// THE ORIGIN</span>
-            <h2 class="font-montserrat font-extrabold text-acid section-title-glow reveal" style="font-size: clamp(2rem,5vw,3.5rem); line-height: 1.1;">THE ALTER</h2>
-            <div class="w-16 h-0.5 bg-acid/40 mt-6 mb-6 reveal"></div>
-            <div class="space-y-4">
-              <p class="font-inter text-text-primary leading-relaxed reveal reveal-delay-1">Lily St. Drake is a professional drag artist and entertainer who brings a unique blend of glamour, comedy, and mind-bending performance art to every stage. With the intentional nod to the psychedelic experience, Lily's performances are designed to take audiences on a journey they won't forget.</p>
-              <p class="font-inter text-text-primary leading-relaxed reveal reveal-delay-2">From high-energy club performances to sophisticated corporate events, Lily delivers unforgettable entertainment that pushes boundaries and breaks expectations. Every show is a unique experience, a chance to escape reality and enter a world of color, music, and pure entertainment.</p>
-              <p class="font-inter text-text-primary leading-relaxed reveal reveal-delay-3">With a growing following and a reputation for professionalism, Lily St. Drake is quickly becoming one of the most sought-after drag artists in the scene.</p>
-            </div>
-            <div class="flex flex-wrap gap-8 mt-10" id="statsContainer">
-              <div class="reveal reveal-delay-3 stat-item">
-                <div class="stat-number font-montserrat font-bold text-acid" style="font-size: clamp(2.5rem,6vw,4rem); line-height: 1;">100+</div>
-                <div class="font-inter font-semibold text-xs tracking-[0.15em] text-text-dim uppercase mt-1">Shows Performed</div>
-              </div>
-              <div class="reveal reveal-delay-4 stat-item">
-                <div class="stat-number font-montserrat font-bold text-acid" style="font-size: clamp(2.5rem,6vw,4rem); line-height: 1;">50+</div>
-                <div class="font-inter font-semibold text-xs tracking-[0.15em] text-text-dim uppercase mt-1">Unique Looks</div>
-              </div>
-              <div class="reveal reveal-delay-5 stat-item">
-                <div class="stat-number font-montserrat font-bold text-acid" style="font-size: clamp(2.5rem,6vw,4rem); line-height: 1;">5★</div>
-                <div class="font-inter font-semibold text-xs tracking-[0.15em] text-text-dim uppercase mt-1">Client Rating</div>
-              </div>
-            </div>
+      <form class="booking-form" id="bookingForm">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="name">Your Name</label>
+            <input type="text" id="name" name="name" required placeholder="John Doe">
           </div>
-          <div class="reveal reveal-delay-2">
-            <div class="relative overflow-hidden border border-border-subtle transition-shadow duration-500 hover:shadow-acid-sm" style="box-shadow: 0 0 40px rgba(57,255,20,0.15);">
-              <img src="/assets/images/hero-portrait.jpg" alt="Lily St. Drake in full drag" class="w-full h-auto object-cover" loading="lazy">
-            </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required placeholder="john@example.com">
           </div>
         </div>
-      </div>
-    </section>
-
-    <!-- GALLERY SECTION -->
-    <section id="gallery" class="relative min-h-screen py-24" style="z-index: 1">
-      <div class="max-w-[1200px] mx-auto px-6 md:px-10">
-        <div class="text-center mb-10">
-          <span class="font-inter font-semibold text-xs tracking-[0.15em] text-acid uppercase block mb-4 reveal">THE LOOKS</span>
-          <h2 class="font-montserrat font-extrabold text-acid section-title-glow reveal" style="font-size: clamp(2rem,5vw,3.5rem); line-height: 1.1;">GALLERY</h2>
-          <p class="font-inter text-text-dim mt-4 max-w-lg mx-auto reveal reveal-delay-1">Every performance, a masterpiece. Browse through Lily's iconic looks.</p>
-          <div class="flex flex-wrap items-center justify-center gap-2 mt-8 reveal reveal-delay-2">
-            <button onclick="filterGallery('ALL')" class="gallery-filter font-inter font-semibold text-xs tracking-[0.15em] px-4 py-2 rounded-sm transition-all duration-200" style="background: #39ff14; color: #050505; border: 1px solid #39ff14;">ALL</button>
-            <button onclick="filterGallery('PERFORMANCES')" class="gallery-filter font-inter font-semibold text-xs tracking-[0.15em] px-4 py-2 rounded-sm transition-all duration-200" style="background: transparent; color: #666; border: 1px solid rgba(57,255,20,0.08);">PERFORMANCES</button>
-            <button onclick="filterGallery('EDITORIAL')" class="gallery-filter font-inter font-semibold text-xs tracking-[0.15em] px-4 py-2 rounded-sm transition-all duration-200" style="background: transparent; color: #666; border: 1px solid rgba(57,255,20,0.08);">EDITORIAL</button>
-            <button onclick="filterGallery('COLLABORATIONS')" class="gallery-filter font-inter font-semibold text-xs tracking-[0.15em] px-4 py-2 rounded-sm transition-all duration-200" style="background: transparent; color: #666; border: 1px solid rgba(57,255,20,0.08);">COLLABORATIONS</button>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="event-type">Event Type</label>
+            <select id="event-type" name="event-type" required>
+              <option value="">Select event type</option>
+              <option value="club">Club Performance</option>
+              <option value="private">Private Event</option>
+              <option value="corporate">Corporate Event</option>
+              <option value="pride">Pride Event</option>
+              <option value="photoshoot">Photo Shoot</option>
+              <option value="hosting">MC / Hosting</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="date">Event Date</label>
+            <input type="date" id="date" name="date">
           </div>
         </div>
-        <div id="galleryGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-12"></div>
+        <div class="form-group">
+          <label for="message">Tell me about your event</label>
+          <textarea id="message" name="message" placeholder="What's the event? Where is it? What kind of performance are you looking for?"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width: 100%;">Send Inquiry</button>
+        <p class="booking-note">I'll get back to you within 24 hours!</p>
+      </form>
+    </div>
+  </section>
+
+  <!-- Support / Wishlist Section -->
+  <section id="the-tithing" class="section section-surface">
+    <div class="section-header animate-on-scroll">
+      <p class="section-label">Help a Queen Out</p>
+      <h2 class="section-title">Support Lily</h2>
+      <p class="section-subtitle">Help me create more magic! Donations and wishlist items keep the illusion alive.</p>
+      <div class="divider"></div>
+    </div>
+    <div class="support animate-on-scroll">
+      <div class="support-intro">
+        <h3>Every Bit Helps</h3>
+        <p>Drag is an expensive art form. From makeup to costumes, every dollar goes toward creating unforgettable performances for you. Whether it's a one-time donation or helping fulfill a wishlist item, your support means the world.</p>
+        <div class="donation-options">
+          <a href="https://venmo.com/lilystdrake" target="_blank" rel="noopener" class="donation-btn">
+            <span class="donation-btn-icon">💚</span>
+            <span class="donation-btn-label">Venmo</span>
+          </a>
+          <a href="https://paypal.me/lilystdrake" target="_blank" rel="noopener" class="donation-btn">
+            <span class="donation-btn-icon">💛</span>
+            <span class="donation-btn-label">PayPal</span>
+          </a>
+          <a href="https://ko-fi.com/lilystdrake" target="_blank" rel="noopener" class="donation-btn">
+            <span class="donation-btn-icon">☕</span>
+            <span class="donation-btn-label">Ko-fi</span>
+          </a>
+          <a href="https://cash.app/$lilystdrake" target="_blank" rel="noopener" class="donation-btn">
+            <span class="donation-btn-icon">💵</span>
+            <span class="donation-btn-label">Cash App</span>
+          </a>
+        </div>
       </div>
-    </section>
-
-    <!-- VIDEOS SECTION -->
-    <section id="videos" class="relative min-h-[60vh] py-24" style="z-index: 1">
-      <div class="max-w-[1200px] mx-auto px-6 md:px-10">
-        <div class="text-center mb-12">
-          <span class="font-inter font-semibold text-xs tracking-[0.15em] text-acid uppercase block mb-4 reveal">PERFORMANCES</span>
-          <h2 class="font-montserrat font-extrabold text-acid section-title-glow reveal" style="font-size: clamp(2rem,5vw,3.5rem); line-height: 1.1;">VIDEOS</h2>
-          <p class="font-inter text-text-dim mt-4 max-w-lg mx-auto reveal reveal-delay-1">Watch Lily's performances and see the magic in action.</p>
+      <div class="wishlist-section">
+        <div class="wishlist-categories">
+          <button class="wishlist-cat-btn active" data-category="all">All</button>
+          <button class="wishlist-cat-btn" data-category="makeup">Makeup</button>
+          <button class="wishlist-cat-btn" data-category="wigs">Wigs</button>
+          <button class="wishlist-cat-btn" data-category="costumes">Costumes</button>
+          <button class="wishlist-cat-btn" data-category="shoes">Shoes</button>
+          <button class="wishlist-cat-btn" data-category="electronics">Electronics</button>
         </div>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8" id="videoGrid"></div>
-      </div>
-    </section>
-
-    <!-- BOOKINGS SECTION (includes reviews + services + form) -->
-    <section id="bookings" class="relative min-h-screen py-24" style="z-index: 1">
-      <div class="max-w-[1200px] mx-auto px-6 md:px-10">
-        <!-- Reviews -->
-        <div class="text-center mb-16">
-          <h2 class="font-montserrat font-extrabold text-acid section-title-glow reveal" style="font-size: clamp(2rem,5vw,3.5rem); line-height: 1.1;">REVIEWS</h2>
-          <p class="font-inter font-semibold text-xs tracking-[0.15em] text-text-dim uppercase mt-4 reveal reveal-delay-1">What People Say</p>
-        </div>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-20" id="reviewsGrid"></div>
-
-        <!-- Services & Pricing -->
-        <div class="mb-20 reveal">
-          <h3 class="font-montserrat font-extrabold text-acid" style="font-size: clamp(1.5rem,3vw,2rem);">Services &amp; Pricing</h3>
-          <p class="font-inter text-text-dim mt-2 max-w-2xl">All bookings include a consultation call to discuss your event, performance preferences, and any special requests. Travel fees may apply for events outside the local area.</p>
-          <div class="mt-8 border-t border-border-subtle" id="servicesList"></div>
-        </div>
-
-        <!-- Booking Form + Contact -->
-        <div class="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-12">
-          <div class="reveal">
-            <h3 class="font-montserrat font-extrabold text-acid" style="font-size: clamp(1.5rem,3vw,2rem);">Get In Touch</h3>
-            <p class="font-inter text-text-dim mt-2">Let's create something unforgettable together.</p>
-            <form id="bookingForm" class="mt-8 space-y-4" onsubmit="handleBookingSubmit(event)">
-              <div><label class="font-inter text-text-primary text-sm block mb-1.5">Your Name</label><input type="text" placeholder="John Doe" required></div>
-              <div><label class="font-inter text-text-primary text-sm block mb-1.5">Email</label><input type="email" placeholder="john@example.com" required></div>
-              <div><label class="font-inter text-text-primary text-sm block mb-1.5">Event Type</label>
-                <select required>
-                  <option value="">Select event type</option>
-                  <option>Club Performance</option><option>Private Event</option><option>Corporate Event</option>
-                  <option>Pride Event</option><option>Photo Shoot</option><option>MC/Hosting</option><option>Other</option>
-                </select>
-              </div>
-              <div><label class="font-inter text-text-primary text-sm block mb-1.5">Event Date</label><input type="date"></div>
-              <div><label class="font-inter text-text-primary text-sm block mb-1.5">Tell me about your event</label><textarea rows="4" placeholder="Describe your event, preferred performance style, and any special requests..." class="w-full resize-none"></textarea></div>
-              <button type="submit" class="font-inter font-medium text-sm tracking-[0.08em] bg-acid text-void px-8 py-3.5 rounded-sm hover:bg-neon-yellow hover:shadow-acid transition-all duration-200 w-full sm:w-auto">Send Inquiry</button>
-              <p id="formFeedback" class="font-inter text-xs text-acid mt-2" style="display: none;"></p>
-            </form>
-          </div>
-          <div class="reveal reveal-delay-2">
-            <div class="panel-surface p-6 rounded-sm sticky top-24">
-              <div class="flex items-center gap-3 mb-4">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#39ff14" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 7l-10 7L2 7"/></svg>
-                <a href="mailto:bookings@lilystdrake.com" class="font-inter text-acid hover:text-neon-yellow transition-colors duration-200">bookings@lilystdrake.com</a>
-              </div>
-              <div class="flex items-center gap-3">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#666" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                <span class="font-inter font-semibold text-xs tracking-[0.15em] text-text-dim uppercase">Response within 24 hours</span>
-              </div>
+        <div class="wishlist-grid">
+          <div class="wishlist-item" data-category="makeup">
+            <div class="wishlist-image">💄</div>
+            <div class="wishlist-info">
+              <div class="wishlist-title">KVD Good Apple Foundation - Full Coverage</div>
+              <div class="wishlist-price">$42.00</div>
+              <span class="wishlist-priority priority-high">High Priority</span>
+              <a href="#" class="wishlist-link">Buy on Amazon</a>
             </div>
           </div>
+          <div class="wishlist-item" data-category="makeup">
+            <div class="wishlist-image">💅</div>
+            <div class="wishlist-info">
+              <div class="wishlist-title">NYX Professional Palette - Heavy Metal</div>
+              <div class="wishlist-price">$24.00</div>
+              <span class="wishlist-priority priority-high">High Priority</span>
+              <a href="#" class="wishlist-link">Buy on Amazon</a>
+            </div>
+          </div>
+          <div class="wishlist-item" data-category="wigs">
+            <div class="wishlist-image">👑</div>
+            <div class="wishlist-info">
+              <div class="wishlist-title">Jon Renau Omni 18inch - Cherry Cola</div>
+              <div class="wishlist-price">$169.00</div>
+              <span class="wishlist-priority priority-high">High Priority</span>
+              <a href="#" class="wishlist-link">Buy on Amazon</a>
+            </div>
+          </div>
+          <div class="wishlist-item" data-category="shoes">
+            <div class="wishlist-image">👠</div>
+            <div class="wishlist-info">
+              <div class="wishlist-title">Pleaser High Heels - Adore-1016</div>
+              <div class="wishlist-price">$85.00</div>
+              <span class="wishlist-priority priority-medium">Medium Priority</span>
+              <a href="#" class="wishlist-link">Buy on Amazon</a>
+            </div>
+          </div>
+          <div class="wishlist-item" data-category="costumes">
+            <div class="wishlist-image">👗</div>
+            <div class="wishlist-info">
+              <div class="wishlist-title">Sequin Bodysuit - Custom Size</div>
+              <div class="wishlist-price">$120.00</div>
+              <span class="wishlist-priority priority-medium">Medium Priority</span>
+              <a href="#" class="wishlist-link">Buy on Amazon</a>
+            </div>
+          </div>
+          <div class="wishlist-item" data-category="electronics">
+            <div class="wishlist-image">📸</div>
+            <div class="wishlist-info">
+              <div class="wishlist-title">Ring Light with Phone Holder - 12 inch</div>
+              <div class="wishlist-price">$35.00</div>
+              <span class="wishlist-priority priority-low">Low Priority</span>
+              <a href="#" class="wishlist-link">Buy on Amazon</a>
+            </div>
+          </div>
+          <div class="wishlist-item" data-category="makeup">
+            <div class="wishlist-image">💋</div>
+            <div class="wishlist-info">
+              <div class="wishlist-title">Lip Kit Bundle - Various Colors</div>
+              <div class="wishlist-price">$56.00</div>
+              <span class="wishlist-priority priority-low">Low Priority</span>
+              <a href="#" class="wishlist-link">Buy on Amazon</a>
+            </div>
+          </div>
+          <div class="wishlist-item" data-category="electronics">
+            <div class="wishlist-image">🎤</div>
+            <div class="wishlist-info">
+              <div class="wishlist-title">Wireless Microphone System</div>
+              <div class="wishlist-price">$79.00</div>
+              <span class="wishlist-priority priority-medium">Medium Priority</span>
+              <a href="#" class="wishlist-link">Buy on Amazon</a>
+            </div>
+          </div>
+        </div>
+        <div class="merch-teaser">
+          <h3>Merch Coming Soon</h3>
+          <p>T-shirts, hoodies, and more exclusive Lily St. Drake gear dropping this year!</p>
+          <span class="merch-badge">Stay Tuned</span>
         </div>
       </div>
-    </section>
+    </div>
+    <div class="support-note animate-on-scroll">
+      <p>💜 <strong>Thank you</strong> to everyone who supports Lily St. Drake. Your generosity helps keep the dream alive!</p>
+    </div>
+  </section>
 
-    <!-- SUPPORT SECTION -->
-    <section id="support" class="relative min-h-screen py-24" style="z-index: 1">
-      <div class="max-w-[1200px] mx-auto px-6 md:px-10">
-        <div class="text-center mb-10">
-          <h2 class="font-montserrat font-extrabold text-acid section-title-glow reveal" style="font-size: clamp(2rem,5vw,3.5rem); line-height: 1.1;">SUPPORT LILY</h2>
-          <p class="font-inter text-text-dim mt-4 max-w-lg mx-auto reveal reveal-delay-1">Help me create more magic! Donations and wishlist items keep the illusion alive.</p>
-        </div>
-        <div id="donationLinks" class="flex flex-wrap items-center justify-center gap-4 mb-16 reveal reveal-delay-2"></div>
-        <div class="mb-20">
-          <h3 class="font-montserrat font-extrabold text-acid reveal" style="font-size: clamp(1.25rem,2.5vw,1.75rem);">Every Bit Helps</h3>
-          <p class="font-inter text-text-dim mt-2 max-w-2xl reveal reveal-delay-1">Drag is an expensive art form. From makeup to costumes, every dollar goes toward creating unforgettable performances for you. Whether it's a one-time donation or helping fulfill a wishlist item, your support means the world.</p>
-          <div class="flex flex-wrap items-center gap-2 mt-6 reveal reveal-delay-2" id="wishlistFilters"></div>
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8" id="wishlistGrid"></div>
-        </div>
-        <div class="text-center reveal">
-          <p class="font-inter text-text-dim">&#10022; <strong class="text-acid">Thank you</strong> to everyone who supports Lily St. Drake. Your generosity helps keep the dream alive! &#10022;</p>
-        </div>
-      </div>
-    </section>
+  <!-- Press Section -->
+  <section id="press" class="section section-surface">
+    <div class="section-header animate-on-scroll">
+      <p class="section-label">As Seen In</p>
+      <h2 class="section-title">Press & Features</h2>
+      <div class="divider"></div>
+    </div>
+    <div class="press-logos animate-on-scroll">
+      <span class="press-logo">Drag Magazine</span>
+      <span class="press-logo">Queer Weekly</span>
+      <span class="press-logo">Pride Times</span>
+      <span class="press-logo">Nightlife News</span>
+    </div>
+  </section>
 
-    <!-- FAQ SECTION -->
-    <section id="faq" class="relative py-24" style="z-index: 1">
-      <div class="max-w-[800px] mx-auto px-6 md:px-10">
-        <div class="text-center mb-12">
-          <span class="font-inter font-semibold text-xs tracking-[0.15em] text-text-dim uppercase block mb-4 reveal">QUESTIONS</span>
-          <h2 class="font-montserrat font-extrabold text-acid section-title-glow reveal" style="font-size: clamp(2rem,5vw,3.5rem); line-height: 1.1;">FAQ</h2>
-        </div>
-        <div class="border-t border-border-subtle" id="faqList"></div>
-      </div>
-    </section>
-
-    <!-- CONNECT SECTION -->
-    <section id="connect" class="relative min-h-[50vh] py-24" style="z-index: 1">
-      <div class="max-w-[1200px] mx-auto px-6 md:px-10">
-        <div class="text-center mb-12">
-          <span class="font-inter font-semibold text-xs tracking-[0.15em] text-acid uppercase block mb-4 reveal">CONNECT</span>
-          <h2 class="font-montserrat font-extrabold text-acid section-title-glow reveal" style="font-size: clamp(2rem,5vw,3.5rem); line-height: 1.1;">GET IN TOUCH</h2>
-          <p class="font-inter text-text-dim mt-4 reveal reveal-delay-1">For bookings, press inquiries, or just to say hi</p>
-        </div>
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-[600px] mx-auto" id="socialGrid"></div>
-        <div class="mt-20 pt-8 border-t border-border-subtle flex flex-col md:flex-row items-center justify-between gap-4">
-          <p class="font-inter font-semibold text-xs tracking-[0.15em] text-text-dim uppercase">&copy; 2026 Lily St. Drake LLC. All rights reserved.</p>
-          <p class="font-inter font-semibold text-xs tracking-[0.15em] text-text-dim uppercase text-center md:text-right">LILY ST. DRAKE &mdash; Professional drag artist and entertainer. Based in Chicago, available worldwide.</p>
+  <!-- FAQ Section -->
+  <section class="section section-dark">
+    <div class="section-header animate-on-scroll">
+      <p class="section-label">Questions</p>
+      <h2 class="section-title">FAQ</h2>
+      <div class="divider"></div>
+    </div>
+    <div class="faq-list animate-on-scroll">
+      <div class="faq-item">
+        <button class="faq-question">How far in advance should I book?</button>
+        <div class="faq-answer">
+          <p>I recommend booking at least 2-4 weeks in advance to secure your date. For large events or peak pride season, 1-2 months is ideal. However, I sometimes have last-minute availability, so it's always worth asking!</p>
         </div>
       </div>
-    </section>
+      <div class="faq-item">
+        <button class="faq-question">Do you travel for events?</button>
+        <div class="faq-answer">
+          <p>Yes! I'm available for events outside my home city. Travel fees may apply depending on distance. Let's discuss your event location during our consultation call.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question">Can I request specific songs or themes?</button>
+        <div class="faq-answer">
+          <p>Absolutely! I love incorporating client preferences into my performances. Just let me know your theme or preferred music style in the booking form, and we'll make it happen.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question">What does a typical performance include?</button>
+        <div class="faq-answer">
+          <p>A standard performance includes 2-3 costume changes, a 15-20 minute set with music and choreography, and audience interaction. For longer events or custom requirements, we can customize the package to fit your needs.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-  </main>
+  <!-- Contact Section -->
+  <section id="contact" class="section section-surface">
+    <div class="section-header animate-on-scroll">
+      <p class="section-label">Connect</p>
+      <h2 class="section-title">Get In Touch</h2>
+      <p class="section-subtitle">For bookings, press inquiries, or just to say hi</p>
+      <div class="divider"></div>
+    </div>
+    <div class="socials-grid animate-on-scroll" style="max-width: 900px; margin: 0 auto;">
+      <a href="https://www.instagram.com/lilyst.drake" target="_blank" rel="noopener" class="social-link">
+        <div class="social-icon">IG</div>
+        <div class="social-text">
+          <h4>Instagram</h4>
+          <p>@lilyst.drake</p>
+        </div>
+      </a>
+      <a href="https://www.tiktok.com/@lilystdrake" target="_blank" rel="noopener" class="social-link">
+        <div class="social-icon">TT</div>
+        <div class="social-text">
+          <h4>TikTok</h4>
+          <p>@lilystdrake</p>
+        </div>
+      </a>
+      <a href="mailto:bookings@lilystdrake.com" class="social-link">
+        <div class="social-icon">@</div>
+        <div class="social-text">
+          <h4>Email</h4>
+          <p>bookings@lilystdrake.com</p>
+        </div>
+      </a>
+      <a href="/socials" class="social-link">
+        <div class="social-icon">🔗</div>
+        <div class="social-text">
+          <h4>All Links</h4>
+          <p>Linktree & more</p>
+        </div>
+      </a>
+    </div>
+  </section>
 
-  <!-- Distortion Cursor -->
-  <div id="distortionCursor" style="display: none;"></div>
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">LILY ST. DRAKE</div>
+        <p class="footer-desc">Professional drag artist and entertainer. Creating unforgettable experiences one performance at a time. Based in Chicago, available worldwide.</p>
+      </div>
+      <div>
+        <h4 class="footer-title">Quick Links</h4>
+        <ul class="footer-links">
+          <li><a href="#about">About</a></li>
+          <li><a href="#gallery">Gallery</a></li>
+          <li><a href="#videos">Videos</a></li>
+          <li><a href="#booking">Bookings</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="footer-title">Services</h4>
+        <ul class="footer-links">
+          <li><a href="#booking">Club Shows</a></li>
+          <li><a href="#booking">Private Events</a></li>
+          <li><a href="#booking">Corporate</a></li>
+          <li><a href="#booking">Photo Shoots</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="footer-title">Connect</h4>
+        <ul class="footer-links">
+          <li><a href="https://instagram.com/lilyst.drake">Instagram</a></li>
+          <li><a href="https://tiktok.com/@lilystdrake">TikTok</a></li>
+          <li><a href="mailto:bookings@lilystdrake.com">Email</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copyright">© 2026 Lily St. Drake LLC. All rights reserved.</p>
+      <div class="footer-socials">
+        <a href="https://instagram.com/lilyst.drake" aria-label="Instagram">IG</a>
+        <a href="https://tiktok.com/@lilystdrake" aria-label="TikTok">TT</a>
+        <a href="mailto:bookings@lilystdrake.com" aria-label="Email">@</a>
+      </div>
+    </div>
+  </footer>
 
-  <script src="/distortion-cursor.js"></script>
   <script src="/hero.js"></script>
-  <script>
-    // ============ LOADING SCREEN ============
-    (function() {
-      const loader = document.getElementById('loader');
-      const progress = document.getElementById('loaderProgress');
-      let p = 0;
-      const interval = setInterval(() => {
-        p += Math.random() * 15;
-        if (p >= 100) {
-          p = 100;
-          clearInterval(interval);
-          setTimeout(() => {
-            loader.classList.add('hidden');
-            // Hide the canvas fixed background until hero.js takes over
-          }, 300);
-        }
-        if (progress) progress.style.width = p + '%';
-      }, 200);
-    })();
-
-    // ============ HERO ANIMATION ============
-    document.fonts.ready.then(() => {
-      requestAnimationFrame(() => {
-        document.getElementById('heroSubtitle').style.cssText += 'opacity: 1; transition: all 0.8s cubic-bezier(0.16,1,0.3,1) 0.2s;';
-        document.getElementById('heroLily').style.cssText += 'opacity: 1; transform: translateY(0);';
-        document.getElementById('heroSt').style.cssText += 'opacity: 1; transform: translateY(0);';
-        document.getElementById('heroDrake').style.cssText += 'opacity: 1; transform: translateY(0);';
-        document.getElementById('heroTagline').style.cssText += 'opacity: 1;';
-        document.getElementById('heroCta').style.cssText += 'opacity: 1;';
-        document.getElementById('scrollIndicator').style.cssText += 'opacity: 1;';
-      });
-    });
-
-    // ============ SCROLL REVEALS ============
-    const revealObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('visible'); } });
-    }, { threshold: 0.15 });
-    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
-
-    // ============ NAVIGATION ============
-    let mobileOpen = false;
-    function toggleMobileMenu() { mobileOpen = !mobileOpen; document.getElementById('mobileMenu').style.display = mobileOpen ? 'flex' : 'none'; }
-    function scrollToSection(id) { document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' }); }
-    // Navbar scroll effect
-    const navbar = document.getElementById('navbar');
-    window.addEventListener('scroll', () => {
-      const scrolled = window.scrollY > 100;
-      navbar.style.background = scrolled ? 'rgba(5,5,5,0.9)' : 'transparent';
-      navbar.style.backdropFilter = scrolled ? 'blur(12px)' : 'none';
-    }, { passive: true });
-    // Active section tracking
-    const navLinks = document.querySelectorAll('.nav-link');
-    const sections = ['hero','about','gallery','videos','bookings','support','connect'];
-    const sectionObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          navLinks.forEach(link => {
-            const isActive = link.getAttribute('href') === '#' + entry.target.id;
-            link.style.color = isActive ? '#39ff14' : '#666';
-            link.style.textShadow = isActive ? '0 0 8px rgba(57,255,20,0.5)' : 'none';
-          });
-        }
-      });
-    }, { threshold: 0.3 });
-    sections.forEach(id => { const el = document.getElementById(id); if (el) sectionObserver.observe(el); });
-
-    // ============ GALLERY ============
-    let currentFilter = 'ALL';
-    function renderGallery() {
-      const grid = document.getElementById('galleryGrid');
-      const filtered = currentFilter === 'ALL' ? GALLERY_DATA : GALLERY_DATA.filter(i => i.category === currentFilter);
-      grid.innerHTML = filtered.map((item, i) => `
-        <div class="group relative overflow-hidden panel-surface cursor-pointer will-change-transform reveal reveal-delay-${(i % 3) + 1}" style="aspect-ratio: 3/4;">
-          <img src="${item.image}" alt="${item.title}" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 gallery-img" loading="lazy" onload="this.classList.add('loaded')">
-          <div class="absolute inset-0 bg-void/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
-            <span class="font-inter font-semibold text-xs tracking-[0.15em] text-acid uppercase">${item.category}</span>
-            <h3 class="font-inter font-medium text-text-primary text-lg mt-1">${item.title}</h3>
-          </div>
-        </div>
-      `).join('');
-      document.querySelectorAll('#galleryGrid .reveal').forEach(el => revealObserver.observe(el));
-    }
-    function filterGallery(filter) {
-      currentFilter = filter;
-      document.querySelectorAll('.gallery-filter').forEach(btn => {
-        const isActive = btn.textContent.trim() === filter;
-        btn.style.background = isActive ? '#39ff14' : 'transparent';
-        btn.style.color = isActive ? '#050505' : '#666';
-        btn.style.border = isActive ? '1px solid #39ff14' : '1px solid rgba(57,255,20,0.08)';
-      });
-      renderGallery();
-    }
-    renderGallery();
-
-    // ============ VIDEOS ============
-    const videoGrid = document.getElementById('videoGrid');
-    videoGrid.innerHTML = VIDEO_DATA.map((v, i) => `
-      <div class="group cursor-pointer reveal reveal-delay-${(i % 3) + 1}">
-        <div class="relative overflow-hidden panel-surface" style="aspect-ratio: 16/9;">
-          <img src="${v.thumbnail}" alt="${v.title}" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 gallery-img" loading="lazy" onload="this.classList.add('loaded')">
-          <div class="absolute inset-0 flex items-center justify-center">
-            <div class="w-16 h-16 rounded-full flex items-center justify-center border-2 border-acid" style="background: rgba(57,255,20,0.2); animation: pulse-play 2s ease-in-out infinite;">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="#39ff14" stroke="#39ff14" stroke-width="2" class="ml-1"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-            </div>
-          </div>
-        </div>
-        <div class="mt-3">
-          <h3 class="font-inter font-medium text-text-primary text-sm">${v.title}</h3>
-          <span class="font-inter font-semibold text-xs tracking-[0.15em] text-text-dim uppercase mt-1 block">${v.duration}</span>
-        </div>
-      </div>
-    `).join('');
-    document.querySelectorAll('#videoGrid .reveal').forEach(el => revealObserver.observe(el));
-
-    // ============ REVIEWS ============
-    const reviewsGrid = document.getElementById('reviewsGrid');
-    reviewsGrid.innerHTML = REVIEWS_DATA.map((r, i) => `
-      <div class="panel-surface p-8 rounded-sm reveal reveal-delay-${(i % 3) + 1}">
-        <span class="text-acid text-2xl font-serif leading-none">&ldquo;</span>
-        <p class="font-inter text-text-primary leading-relaxed mt-2">${r.quote}</p>
-        <div class="mt-6">
-          <p class="font-inter font-medium text-acid text-sm">${r.name}</p>
-          <p class="font-inter font-semibold text-xs tracking-[0.15em] text-text-dim uppercase mt-1">${r.title}</p>
-        </div>
-      </div>
-    `).join('');
-    document.querySelectorAll('#reviewsGrid .reveal').forEach(el => revealObserver.observe(el));
-
-    // ============ SERVICES ============
-    const servicesList = document.getElementById('servicesList');
-    servicesList.innerHTML = SERVICES_DATA.map((s, i) => `
-      <div class="flex items-center justify-between py-5 px-4 border-b border-border-subtle reveal" style="background: ${i % 2 === 0 ? 'rgba(57,255,20,0.02)' : 'transparent'};">
-        <span class="font-inter text-text-primary">${s.name}</span>
-        <span class="font-inter font-semibold text-acid">From ${s.price}</span>
-      </div>
-    `).join('');
-    document.querySelectorAll('#servicesList .reveal').forEach(el => revealObserver.observe(el));
-
-    // ============ BOOKING FORM ============
-    function handleBookingSubmit(e) {
-      e.preventDefault();
-      const feedback = document.getElementById('formFeedback');
-      feedback.textContent = "I'll get back to you within 24 hours!";
-      feedback.style.display = 'block';
-      setTimeout(() => feedback.style.display = 'none', 4000);
-    }
-
-    // ============ DONATIONS ============
-    const donationLinks = document.getElementById('donationLinks');
-    donationLinks.innerHTML = DONATION_DATA.map(d => `
-      <a href="${d.url}" target="_blank" rel="noopener noreferrer" class="group flex items-center gap-3 panel-surface px-6 py-4 rounded-sm border border-border-subtle hover:border-acid hover:shadow-acid-sm transition-all duration-200">
-        <span class="text-xl">${d.icon}</span>
-        <span class="font-inter font-medium text-sm text-text-primary group-hover:text-acid transition-colors duration-200">${d.name}</span>
-      </a>
-    `).join('');
-
-    // ============ WISHLIST ============
-    let wishlistFilter = 'All';
-    const WISHLIST_CATS = ['All','Makeup','Wigs','Costumes','Shoes','Electronics'];
-    const priorityStyles = { High: { bg: 'rgba(57,255,20,0.15)', color: '#39ff14', border: 'rgba(57,255,20,0.3)' }, Medium: { bg: 'rgba(212,255,0,0.1)', color: '#d4ff00', border: 'rgba(212,255,0,0.2)' }, Low: { bg: 'rgba(102,102,102,0.1)', color: '#666', border: 'rgba(102,102,102,0.2)' } };
-    function renderWishlist() {
-      const grid = document.getElementById('wishlistGrid');
-      const filtered = wishlistFilter === 'All' ? WISHLIST_DATA : WISHLIST_DATA.filter(i => i.category === wishlistFilter);
-      grid.innerHTML = filtered.map((item, i) => {
-        const ps = priorityStyles[item.priority];
-        return `<div class="panel-surface p-5 rounded-sm flex items-center gap-4 reveal reveal-delay-${(i % 2) + 1}">
-          <span class="text-2xl flex-shrink-0">${item.icon}</span>
-          <div class="flex-1 min-w-0">
-            <p class="font-inter text-text-primary text-sm truncate">${item.name}</p>
-            <div class="flex items-center gap-2 mt-1.5">
-              <span class="font-inter font-semibold text-xs px-2 py-0.5 rounded-sm" style="background: ${ps.bg}; color: ${ps.color}; border: 1px solid ${ps.border};">${item.priority} Priority</span>
-            </div>
-          </div>
-          <div class="text-right flex-shrink-0">
-            <p class="font-inter font-semibold text-acid text-sm">${item.price}</p>
-            <a href="${item.link}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 font-inter font-semibold text-xs tracking-[0.15em] text-acid hover:underline mt-1">Buy on Amazon <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
-          </div>
-        </div>`;
-      }).join('');
-      document.querySelectorAll('#wishlistGrid .reveal').forEach(el => revealObserver.observe(el));
-    }
-    function renderWishlistFilters() {
-      const container = document.getElementById('wishlistFilters');
-      container.innerHTML = WISHLIST_CATS.map(cat => `
-        <button onclick="filterWishlist('${cat}')" class="wishlist-cat-btn font-inter font-semibold text-xs tracking-[0.15em] px-4 py-2 rounded-sm transition-all duration-200" style="background: ${wishlistFilter === cat ? '#39ff14' : 'transparent'}; color: ${wishlistFilter === cat ? '#050505' : '#666'}; border: ${wishlistFilter === cat ? '1px solid #39ff14' : '1px solid rgba(57,255,20,0.08)'};">${cat.toUpperCase()}</button>
-      `).join('');
-    }
-    window.filterWishlist = function(cat) { wishlistFilter = cat; renderWishlistFilters(); renderWishlist(); };
-    renderWishlistFilters();
-    renderWishlist();
-
-    // ============ FAQ ============
-    let faqOpen = null;
-    const faqList = document.getElementById('faqList');
-    faqList.innerHTML = FAQ_DATA.map((item, i) => `
-      <div class="border-b border-border-subtle reveal reveal-delay-${(i % 2) + 1}">
-        <button onclick="toggleFaq(${i})" class="w-full flex items-center justify-between py-5 text-left group">
-          <span class="font-inter text-text-primary pr-4 group-hover:text-acid transition-colors duration-200">${item.q}</span>
-          <svg id="faqIcon${i}" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#39ff14" stroke-width="2" class="flex-shrink-0 transition-transform duration-300"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-        </button>
-        <div id="faqAnswer${i}" class="overflow-hidden transition-all duration-300" style="max-height: 0; opacity: 0;">
-          <p class="font-inter text-text-dim leading-relaxed pb-5 pr-8">${item.a}</p>
-        </div>
-      </div>
-    `).join('');
-    document.querySelectorAll('#faqList .reveal').forEach(el => revealObserver.observe(el));
-    window.toggleFaq = function(i) {
-      const wasOpen = faqOpen === i;
-      // Close all
-      FAQ_DATA.forEach((_, idx) => {
-        document.getElementById(`faqAnswer${idx}`).style.maxHeight = '0';
-        document.getElementById(`faqAnswer${idx}`).style.opacity = '0';
-        const icon = document.getElementById(`faqIcon${idx}`);
-        if (icon) icon.style.transform = 'rotate(0deg)';
-      });
-      if (!wasOpen) {
-        faqOpen = i;
-        document.getElementById(`faqAnswer${i}`).style.maxHeight = '300px';
-        document.getElementById(`faqAnswer${i}`).style.opacity = '1';
-        document.getElementById(`faqIcon${i}`).style.transform = 'rotate(45deg)';
-      } else { faqOpen = null; }
-    };
-
-    // ============ SOCIAL CARDS ============
-    function getSocialSvg(type) {
-      const svgs = {
-        ig: '<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#39ff14" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5" fill="#39ff14"/></svg>',
-        tiktok: '<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#39ff14" stroke-width="1.5"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/></svg>',
-        email: '<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#39ff14" stroke-width="1.5"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 7l-10 7L2 7"/></svg>',
-        link: '<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#39ff14" stroke-width="1.5"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>',
-      };
-      return svgs[type] || '';
-    }
-    const socialGrid = document.getElementById('socialGrid');
-    socialGrid.innerHTML = SOCIAL_DATA.map((s, i) => `
-      <a href="${s.url}" target="_blank" rel="noopener noreferrer" class="group flex items-center gap-4 panel-surface p-6 rounded-sm border border-border-subtle hover:border-acid hover:-translate-y-0.5 hover:shadow-acid-sm transition-all duration-200 reveal reveal-delay-${(i % 2) + 1}">
-        <div class="w-10 h-10 flex items-center justify-center flex-shrink-0">${getSocialSvg(s.icon)}</div>
-        <div>
-          <p class="font-inter font-medium text-text-primary group-hover:text-acid transition-colors duration-200">${s.name}</p>
-          <p class="font-inter font-semibold text-xs tracking-[0.15em] text-text-dim uppercase mt-0.5">${s.handle}</p>
-        </div>
-      </a>
-    `).join('');
-    document.querySelectorAll('#socialGrid .reveal').forEach(el => revealObserver.observe(el));
-  </script>
+  <script src="/distortion-cursor.js"></script>
+  <script src="/assets/js/main.js"></script>
 </body>
 </html>

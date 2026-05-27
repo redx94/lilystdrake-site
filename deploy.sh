@@ -16,7 +16,7 @@ if [ -z "$CLOUDFLARE_API_TOKEN" ]; then
 fi
 
 cd public
-npx wrangler pages deploy . --project-name=lilystdrake --branch production
+  npx wrangler pages deploy . --project-name=lilystdrake --branch main
 
 echo ""
 echo "Done! https://lilystdrake.com"
