@@ -13,7 +13,6 @@
 
 html, body {
   height: 100%;
-  overflow: hidden;
   width: 100%;
 }
 
@@ -345,23 +344,8 @@ body {
 }
 
 .about-content {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 4rem;
-  align-items: center;
-  max-width: 1200px;
+  max-width: 800px;
   margin: 0 auto;
-}
-
-.about-image {
-  position: relative;
-}
-
-.about-image img {
-  width: 100%;
-  height: auto;
-  border: 2px solid var(--acid);
-  box-shadow: var(--acid-glow);
 }
 
 .about-text h3 {
@@ -371,6 +355,7 @@ body {
   color: var(--acid);
   margin-bottom: 1.5rem;
   letter-spacing: 0.1em;
+  text-align: center;
 }
 
 .about-text p {
@@ -378,6 +363,7 @@ body {
   line-height: 1.8;
   color: var(--text-primary);
   margin-bottom: 1rem;
+  text-align: center;
 }
 
 /* Contact Section */
@@ -614,14 +600,6 @@ body {
     grid-template-columns: 1fr;
   }
 
-  .about-content {
-    grid-template-columns: 1fr;
-    gap: 2rem;
-  }
-
-  .about-text h3 {
-    font-size: 1.5rem;
-  }
 
   .lightbox-close,
   .lightbox-prev,
